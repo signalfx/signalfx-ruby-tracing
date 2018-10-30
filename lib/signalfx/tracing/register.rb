@@ -29,5 +29,5 @@ module SignalFx
     end
 end
 
-require 'signalfx/tracing/patches/patching-test'
-require 'signalfx/tracing/patches/sinatra'
+require 'signalfx/tracing/instrumentation/patching-test'
+require 'signalfx/tracing/instrumentation/sinatra'

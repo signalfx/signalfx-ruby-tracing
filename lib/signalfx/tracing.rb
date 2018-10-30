@@ -15,8 +15,6 @@ module SignalFx
                     else
                         Register.available_libs[to_patch].instrument
                     end
-
-                    puts Register.available_libs
                 end
             end
         end

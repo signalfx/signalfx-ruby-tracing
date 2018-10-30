@@ -8,11 +8,10 @@ module SignalFx
         class << self
 
           def instrument
-            puts "patching sinatra"
+            require 'sinatra/tracer'
           end
         end
       end
-
     end
   end
 end
