@@ -1,5 +1,3 @@
-require 'signalfx/tracing/patches/patching-test'
-
 module SignalFx
     module Tracing
         module Instrumenter
@@ -22,7 +20,14 @@ module SignalFx
 
                     @initialized = true
                 end
+
+                def self.add_lib(patch_key, patch_module)
+                  @available_libs[patch_key] = patch_module
+                end
             end
         end
     end
 end
+
+require 'signalfx/tracing/patches/patching-test'
+require 'signalfx/tracing/patches/sinatra'

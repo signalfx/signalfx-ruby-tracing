@@ -1,25 +1,23 @@
-require 'signalfx/tracing/register'
-
 module SignalFx
-    module Tracing
-        module Instrumenter
-            module Patches
-                module PatchingTest
-                    class ToPatch
+  module Tracing
+    module Instrumenter
+      module PatchingTest
 
-                        def patch
+        Register.add_lib :PatchingTest, self
 
-                            ::PatchingTest::ToPatch.class_eval do
-                                alias_method :test_old, :test
+        class << self
 
-                                def test
-                                    puts "patched test"
-                                end
-                            end
-                        end
-                    end
-                end
+          def instrument
+            ::PatchingTest::ToPatch.class_eval do
+              alias_method :test_old, :test
+
+              def test
+                puts "patched test"
+              end
             end
+          end
         end
+      end
     end
+  end
 end

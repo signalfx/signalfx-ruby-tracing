@@ -1,31 +1,24 @@
 require 'signalfx/tracing/register'
-require 'signalfx/tracing/patches/patching-test'
 
 module SignalFx
     module Tracing
         module Instrumenter
-            class Patch
+            class << self
 
-                def self.configure
+                def configure
                     yield self
                 end
 
-                def self.instrument(to_patch)
-
-                    # if this is the first time, include all the available patches
-                    if !Register.initialized?
-                        Register.include_patches
-                    end
-
+                def instrument(to_patch)
                     if Register.available_libs[to_patch].nil?
                         puts "instrumentation not found"
                     else
-                        puts "found instrumentation"
-                        Register.available_libs[to_patch].patch
+                        Register.available_libs[to_patch].instrument
                     end
+
+                    puts Register.available_libs
                 end
             end
         end
     end
 end
-
