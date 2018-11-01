@@ -19,6 +19,19 @@ end
 
 Details and configuration for specific frameworks.
 
+## Active Record
+
+This instrumentation creates spans for each Active Record query using the Active
+Support notifications framework.
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:ActiveRecord)
+end
+```
+
 ## Faraday
 
 Faraday HTTP client instrumentation automatically creates spans for outgoing
