@@ -33,6 +33,20 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Rack
+
+Rack spans are created using the `rack-tracer` gem. This is enabled
+automatically for other frameworks that are built on top of Rack, but it can
+also be separately enabled.
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Rack)
+end
+```
+
 ## Sinatra
 
 Sinatra instrumentation traces requests and template rendering.

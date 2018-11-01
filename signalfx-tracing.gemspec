@@ -36,4 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "sinatra-tracer", "~> 0.1.0"
   spec.add_development_dependency "faraday-tracer", "~> 0.7.0"
+  spec.add_development_dependency "rack-tracer", "~> 0.8.0"
+
 end
