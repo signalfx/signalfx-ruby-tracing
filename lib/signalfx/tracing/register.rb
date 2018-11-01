@@ -31,3 +31,4 @@ end
 
 require 'signalfx/tracing/instrumentation/patching-test'
 require 'signalfx/tracing/instrumentation/sinatra'
+require 'signalfx/tracing/instrumentation/faraday'
