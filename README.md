@@ -46,6 +46,26 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Net::HTTP
+
+This automatically traces all requests using Net::HTTP.
+
+### Usage
+
+Before using, configure the environment:
+
+```bash
+export TRACER_INGEST_URL=<ingest_url>
+```
+
+Then in the code:
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:NetHttp)
+end
+```
+
 ## Rack
 
 Rack spans are created using the `rack-tracer` gem. This is enabled
