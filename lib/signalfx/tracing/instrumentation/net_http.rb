@@ -10,7 +10,7 @@ module SignalFx
           def instrument
             require 'net/http/tracer'
 
-            ::Net::Http::Tracer.instrument
+            ::Net::Http::Tracer.instrument(tracer_url: ::SignalFx::Tracing::Instrumenter.ingest_url)
           end
         end
       end

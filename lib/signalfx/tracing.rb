@@ -7,11 +7,13 @@ module SignalFx
   module Tracing
     module Instrumenter
 
-      @ingest_url = "http://localhost:14268/api/traces".freeze
-
       class << self
 
-        def configure(tracer: nil)
+        attr_reader :ingest_url
+
+        def configure(tracer: nil,
+                      ingest_url: "https://ingest.signalfx.com/v1/trace")
+          @ingest_url = ingest_url
           set_tracer(tracer)
           yield self
         end
@@ -26,7 +28,6 @@ module SignalFx
 
         def set_tracer(tracer)
           # build a new tracer if one wasn't provided
-          puts @ingest_url
           if tracer.nil?
             access_token = ENV['SIGNALFX_ACCESS_TOKEN']
             service_name = ENV['SERVICE_NAME']
