@@ -30,7 +30,7 @@ module SignalFx
           # build a new tracer if one wasn't provided
           if tracer.nil?
             access_token = ENV['SIGNALFX_ACCESS_TOKEN']
-            service_name = ENV['SERVICE_NAME']
+            service_name = ENV['SERVICE_NAME'] || "signalfx-ruby-tracing"
             headers = { "X-SF-Token" => access_token }
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
             http_sender = Jaeger::Client::HttpSender.new(url: @ingest_url, headers: headers, encoder: encoder)
