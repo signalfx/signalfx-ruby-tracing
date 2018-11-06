@@ -12,9 +12,11 @@ module SignalFx
         attr_reader :ingest_url
 
         def configure(tracer: nil,
-                      ingest_url: "https://ingest.signalfx.com/v1/trace")
+                      ingest_url: 'https://ingest.signalfx.com/v1/trace',
+                      service_name: ENV['SERVICE_NAME'] || "signalfx-ruby-tracing",
+                      access_token: ENV['SIGNALFX_ACCESS_TOKEN'])
           @ingest_url = ingest_url
-          set_tracer(tracer)
+          set_tracer(tracer: tracer, service_name: service_name, access_token: access_token)
           yield self
         end
 
@@ -26,11 +28,9 @@ module SignalFx
           end
         end
 
-        def set_tracer(tracer)
+        def set_tracer(tracer: nil, service_name: nil, access_token: nil)
           # build a new tracer if one wasn't provided
           if tracer.nil?
-            access_token = ENV['SIGNALFX_ACCESS_TOKEN']
-            service_name = ENV['SERVICE_NAME'] || "signalfx-ruby-tracing"
             headers = { "X-SF-Token" => access_token }
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
             http_sender = Jaeger::Client::HttpSender.new(url: @ingest_url, headers: headers, encoder: encoder)

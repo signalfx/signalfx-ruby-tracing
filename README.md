@@ -1,4 +1,3 @@
-
 # Ruby auto-instrumenter
 
 ## Usage
@@ -14,6 +13,26 @@ SignalFx::Tracing::Instrumenter.configure do |patcher|
     patcher.instrument(:LibName)
 end
 ```
+
+`configure` accepts several optional parameters:
+- `tracer`: a preconfigured OpenTracing tracer to use. If one is not provided,
+  a new tracer will be initialized. Default: `nil`
+- `ingest_url`: this is the endpoint to which spans are sent by the tracer.
+  Default: `https://ingest.signalfx.com/v1/trace`
+- `service_name`: service name to send spans under.
+  Default: `signalfx-ruby-tracing`
+- `access_token`: SignalFx access token for authentication. Default: `''`
+
+Environment variables can be used to configure `service_name` and `access_token`
+if not given to the `configure` method.
+
+```bash
+export SIGNALFX_ACCESS_TOKEN="<token>"
+export SERVICE_NAME="<service_name>"
+```
+
+If these environment variables are not set, the values will default to the ones
+listed above.
 
 # Instrumentation
 
@@ -51,14 +70,6 @@ end
 This automatically traces all requests using Net::HTTP.
 
 ### Usage
-
-Before using, configure the environment:
-
-```bash
-export TRACER_INGEST_URL=<ingest_url>
-```
-
-Then in the code:
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
