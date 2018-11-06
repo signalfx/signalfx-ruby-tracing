@@ -2,11 +2,8 @@
 
 ## Usage
 
-```ruby
-SignalFx::Tracing::Instrumenter.instrument(:LibName)
-```
-
-or as a block
+Configure the instrumentation anywhere in the setup portion of your code or before doing anything
+that needs to be traced. For example, in `config/initializers/tracing.rb` for Rails.
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |patcher|
@@ -109,11 +106,36 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Rails
+
+Rails applications can be traced using the notifications provided by ActiveSupport.
+It can use `rack-tracer` to trace by requests, or it'll try to group spans by
+request ID.
+
+The source for this instrumentation is located [here](https://github.com/achandras/ruby-rails-tracer).
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Rails)
+end
+```
+
+Optionally, to disable Rack instrumentation, set the `rack_tracer` field to false.
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Rails, rack_tracer: false)
+end
+```
+
 ## Sinatra
 
 Sinatra instrumentation traces requests and template rendering. The instrumenter
 registers a Sinatra extension that uses `rack-tracer` to trace requests and
-monkey-patches to trace view rendering.
+monkey-patches to trace view rendering. Rack instrumentation is automatically
+enabled when using Sinatra instrumentation.
 
 The source for this instrumentation is located [here](https://github.com/signalfx/sinatra-tracer).
 

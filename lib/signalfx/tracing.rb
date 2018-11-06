@@ -20,11 +20,11 @@ module SignalFx
           yield self
         end
 
-        def instrument(to_patch)
+        def instrument(to_patch, **args)
           if Register.available_libs[to_patch].nil?
             puts "instrumentation not found"
           else
-            Register.available_libs[to_patch].instrument
+            Register.available_libs[to_patch].instrument(**args)
           end
         end
 
