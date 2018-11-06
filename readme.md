@@ -1,4 +1,0 @@
-
-# Ruby auto-instrumenter
-
-
