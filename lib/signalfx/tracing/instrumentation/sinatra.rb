@@ -7,7 +7,7 @@ module SignalFx
 
         class << self
 
-          def instrument
+          def instrument(opt = {})
             require 'sinatra/tracer'
           end
         end

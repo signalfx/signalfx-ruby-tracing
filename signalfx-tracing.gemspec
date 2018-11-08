@@ -44,5 +44,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "net-http-tracer", "~> 0.1.0"
   spec.add_dependency "rails-tracer", "~> 0.5.0"
   spec.add_dependency "restclient-instrumentation", "~> 0.1"
+  spec.add_dependency "mongodb-instrumentation", "~> 0.1"
 
 end

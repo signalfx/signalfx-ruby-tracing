@@ -7,7 +7,7 @@ module SignalFx
 
         class << self
 
-          def instrument
+          def instrument(opts = {})
             require 'rack/tracer'
           end
         end
