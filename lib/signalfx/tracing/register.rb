@@ -29,11 +29,10 @@ module SignalFx
     end
 end
 
-require 'signalfx/tracing/instrumentation/patching-test'
+require 'signalfx/tracing/instrumentation/active_record'
 require 'signalfx/tracing/instrumentation/sinatra'
 require 'signalfx/tracing/instrumentation/faraday'
 require 'signalfx/tracing/instrumentation/rack'
-require 'signalfx/tracing/instrumentation/active_record'
 require 'signalfx/tracing/instrumentation/net_http'
 require 'signalfx/tracing/instrumentation/rails'
 require 'signalfx/tracing/instrumentation/restclient'

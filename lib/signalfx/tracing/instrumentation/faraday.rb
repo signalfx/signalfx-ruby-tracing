@@ -8,6 +8,8 @@ module SignalFx
         class << self
           
           def instrument(opts = {})
+            return if !defined?(::Faraday)
+
             require 'faraday/tracer'
 
             patch_initialize

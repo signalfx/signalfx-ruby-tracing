@@ -8,6 +8,8 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
+            return if !defined?(::ActiveSupport::Notifications)
+
             require 'active_record/opentracing'
             ::ActiveRecord::OpenTracing.instrument
           end

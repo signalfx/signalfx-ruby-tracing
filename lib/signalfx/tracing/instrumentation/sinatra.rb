@@ -8,6 +8,8 @@ module SignalFx
         class << self
 
           def instrument(opt = {})
+            return if !defined?(::Sinatra)
+
             require 'sinatra/tracer'
           end
         end
