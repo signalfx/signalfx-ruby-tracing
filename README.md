@@ -5,9 +5,19 @@
 Configure the instrumentation anywhere in the setup portion of your code or before doing anything
 that needs to be traced. For example, in `config/initializers/tracing.rb` for Rails.
 
+This can be done automatically, where the auto-instrumenter will check for
+modules defined in the code and instrument them if available:
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure(auto_configure:true)
+```
+
+or manually in a block:
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |patcher|
     patcher.instrument(:LibName)
+    ...
 end
 ```
 

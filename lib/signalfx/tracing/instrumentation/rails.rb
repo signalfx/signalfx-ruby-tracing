@@ -7,7 +7,10 @@ module SignalFx
 
         class << self
 
-          def instrument(rack_tracer: true)
+          def instrument(opts = {})
+            # instrument supported versions
+            return if !defined?(::Rails) or Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('3.2')
+
             require 'rails/tracer'
             require 'rack/tracer'
 
