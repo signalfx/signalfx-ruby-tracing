@@ -8,6 +8,8 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
+            return if !defined?(::Mongo)
+
             require 'mongodb/instrumentation'
 
             ::MongoDB::Instrumentation.instrument
