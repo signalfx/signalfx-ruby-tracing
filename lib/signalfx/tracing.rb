@@ -12,8 +12,8 @@ module SignalFx
         attr_reader :ingest_url
 
         def configure(tracer: nil,
-                      ingest_url: 'https://ingest.signalfx.com/v1/trace',
-                      service_name: ENV['SERVICE_NAME'] || "signalfx-ruby-tracing",
+                      ingest_url: ENV['SIGNALFX_INGEST_URL'] || 'https://ingest.signalfx.com/v1/trace',
+                      service_name: ENV['SIGNALFX_SERVICE_NAME'] || "signalfx-ruby-tracing",
                       access_token: ENV['SIGNALFX_ACCESS_TOKEN'])
           @ingest_url = ingest_url
           set_tracer(tracer: tracer, service_name: service_name, access_token: access_token)
