@@ -25,7 +25,8 @@ if not given to the `configure` method.
 
 ```bash
 export SIGNALFX_ACCESS_TOKEN="<token>"
-export SERVICE_NAME="<service_name>"
+export SIGNALFX_SERVICE_NAME="<service_name>"
+export SIGNALFX_INGEST_URL="<url>"
 ```
 
 If these environment variables are not set, the values will default to the ones
