@@ -8,7 +8,11 @@ module SignalFx
         class << self
           
           def instrument(opts = {})
-            return if !defined?(::Faraday)
+            begin
+              require 'faraday'
+            rescue LoadError
+              return
+            end
 
             require 'faraday/tracer'
 
