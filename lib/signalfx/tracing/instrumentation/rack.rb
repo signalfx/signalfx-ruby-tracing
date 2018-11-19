@@ -8,7 +8,11 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
-            return if !defined?(::Rack)
+            begin
+              require 'rack'
+            rescue LoadError
+              return
+            end
 
             require 'rack/tracer'
           end
