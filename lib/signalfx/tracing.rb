@@ -15,10 +15,10 @@ module SignalFx
                       ingest_url: ENV['SIGNALFX_INGEST_URL'] || 'https://ingest.signalfx.com/v1/trace',
                       service_name: ENV['SIGNALFX_SERVICE_NAME'] || "signalfx-ruby-tracing",
                       access_token: ENV['SIGNALFX_ACCESS_TOKEN'],
-                      auto_configure: false)
+                      auto_instrument: false)
           @ingest_url = ingest_url
           set_tracer(tracer: tracer, service_name: service_name, access_token: access_token)
-          if auto_configure
+          if auto_instrument
             Register.available_libs.each_pair do |key, value|
               value.instrument
             end

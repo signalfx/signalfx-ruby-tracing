@@ -9,7 +9,7 @@ This can be done automatically, where the auto-instrumenter will check for
 modules defined in the code and instrument them if available:
 
 ```ruby
-SignalFx::Tracing::Instrumenter.configure(auto_configure:true)
+SignalFx::Tracing::Instrumenter.configure(auto_instrument:true)
 ```
 
 or manually in a block:
