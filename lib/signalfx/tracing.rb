@@ -1,7 +1,7 @@
 require 'jaeger/client'
-require 'jaeger/client/http_sender'
-
+require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
+require 'thread'
 
 module SignalFx
   module Tracing
@@ -33,9 +33,12 @@ module SignalFx
           if tracer.nil?
             headers = { "X-SF-Token" => access_token }
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
-            http_sender = Jaeger::Client::HttpSender.new(url: @ingest_url, headers: headers, encoder: encoder)
 
-            @tracer = Jaeger::Client.build(service_name: service_name, sender: http_sender)
+            call_before = lambda { Thread.current.thread_variable_set(:http_sender_thread, true) }
+            call_after = lambda { Thread.current.thread_variable_set(:http_sender_thread, nil) }
+            http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder, call_before: call_before, call_after: call_after)
+
+            @tracer = Jaeger::Client.build(service_name: service_name, sender: http_sender, flush_interval: 1)
             OpenTracing.global_tracer = @tracer
           else
             @tracer = tracer
