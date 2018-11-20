@@ -8,6 +8,12 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
+            begin
+              require 'restclient'
+            rescue LoadError
+              return
+            end
+
             require 'restclient/instrumentation'
             
             ::RestClient::Instrumentation.instrument
