@@ -131,6 +131,19 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## RestClient
+
+RestClient requests can be patched to automatically be wrapped in a span. It
+will also inject the span context so remote services can extract it.
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:RestClient)
+end
+```
+
 ## Sinatra
 
 Sinatra instrumentation traces requests and template rendering. The instrumenter
