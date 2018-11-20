@@ -8,7 +8,11 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
-            return if !defined?(::Mongo)
+            begin
+              require 'mongo'
+            rescue LoadError
+              return
+            end
 
             require 'mongodb/instrumentation'
 
