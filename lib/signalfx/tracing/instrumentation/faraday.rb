@@ -8,6 +8,12 @@ module SignalFx
         class << self
           
           def instrument(opts = {})
+            begin
+              require 'faraday'
+            rescue LoadError
+              return
+            end
+
             require 'faraday/tracer'
 
             patch_initialize

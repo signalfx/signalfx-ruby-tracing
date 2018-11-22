@@ -8,6 +8,12 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
+            begin
+              require 'rack'
+            rescue LoadError
+              return
+            end
+
             require 'rack/tracer'
           end
         end

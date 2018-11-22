@@ -8,6 +8,12 @@ module SignalFx
         class << self
 
           def instrument(opt = {})
+            begin
+              require 'sinatra'
+            rescue LoadError
+              return
+            end
+
             require 'sinatra/tracer'
           end
         end
