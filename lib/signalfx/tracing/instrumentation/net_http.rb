@@ -7,10 +7,10 @@ module SignalFx
 
         class << self
 
-          def instrument
+          def instrument(opts = {})
             require 'net/http/tracer'
 
-            ::Net::Http::Tracer.instrument(tracer_url: ::SignalFx::Tracing::Instrumenter.ingest_url)
+            ::Net::Http::Tracer.instrument
           end
         end
       end

@@ -7,11 +7,11 @@ module SignalFx
 
         class << self
 
-          def instrument(rack_tracer: true)
+          def instrument(opts = {})
             require 'rails/tracer'
             require 'rack/tracer'
 
-            if rack_tracer
+            if opts.fetch(:rack_tracer, false)
               # add rack middlewares
               ::Rails.configuration.middleware.use(::Rack::Tracer)
               ::Rails.configuration.middleware.insert_after(::Rack::Tracer, ::Rails::Rack::Tracer)

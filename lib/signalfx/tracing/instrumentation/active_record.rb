@@ -7,7 +7,7 @@ module SignalFx
 
         class << self
 
-          def instrument
+          def instrument(opts = {})
             require 'active_record/opentracing'
             ::ActiveRecord::OpenTracing.instrument
           end
