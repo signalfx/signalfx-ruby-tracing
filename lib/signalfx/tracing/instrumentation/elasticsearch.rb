@@ -37,8 +37,7 @@ module SignalFx
                 client = new_original(arguments, &block)
                 client.transport = ::Elasticsearch::Tracer::Transport.new(tracer: OpenTracing.global_tracer,
                                                                  active_span: -> { OpenTracing.global_tracer.active_span },
-                                                                 transport: client.transport,
-                                                                 db_statement_limit: 1024)
+                                                                 transport: client.transport)
 
                 return client
               end
