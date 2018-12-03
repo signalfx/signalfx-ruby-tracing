@@ -42,10 +42,8 @@ module SignalFx
             headers = {}
 
             # don't set the header if no token was provided
-            if access_token.nil? || access_token.empty?
-              headers = {}
-            else
-              headers = { "X-SF-Token" => access_token }
+            if access_token && !access_token.empty?
+              headers["X-SF-Token"] = access_token
             end
 
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
