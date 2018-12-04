@@ -37,8 +37,8 @@ module SignalFx
                 # specified a non-default transport
                 client = ::Elasticsearch::Tracer::TracingClient.new(arguments, &block)
                 client.transport = ::Elasticsearch::Tracer::Transport.new(tracer: OpenTracing.global_tracer,
-                                                                 active_span: -> { OpenTracing.global_tracer.active_span },
-                                                                 transport: client.transport)
+                                                                          active_span: -> { OpenTracing.global_tracer.active_span },
+                                                                          transport: client.transport)
 
                 return client
               end
