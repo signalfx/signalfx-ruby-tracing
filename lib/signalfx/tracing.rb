@@ -38,7 +38,11 @@ module SignalFx
         def set_tracer(tracer: nil, service_name: nil, access_token: nil)
           # build a new tracer if one wasn't provided
           if tracer.nil?
-            headers = { "X-SF-Token" => access_token }
+            headers = {}
+
+            # don't set the header if no token was provided
+            headers["X-SF-Token"] = access_token if access_token && !access_token.empty?
+
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
 
             http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
