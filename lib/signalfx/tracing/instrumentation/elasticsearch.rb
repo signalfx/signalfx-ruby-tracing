@@ -31,10 +31,11 @@ module SignalFx
               alias_method :new_original, :new
 
               def new(arguments = {}, &block)
-                # create a new default client, and add the tracing transport afterwards.
-                # This allows us to maintain the original transport if the user has specified
-                # a non-default transport
-                client = new_original(arguments, &block)
+                # create a new TracingClient, which is almost identical to the
+                # default client, and add the tracing transport afterwards. This
+                # allows us to maintain the original transport if the user has
+                # specified a non-default transport
+                client = ::Elasticsearch::Tracer::TracingClient.new(arguments, &block)
                 client.transport = ::Elasticsearch::Tracer::Transport.new(tracer: OpenTracing.global_tracer,
                                                                  active_span: -> { OpenTracing.global_tracer.active_span },
                                                                  transport: client.transport)
