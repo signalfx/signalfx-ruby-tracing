@@ -87,7 +87,7 @@ transport on the clients to be traced manually:
 require 'elasticsearch'
 require 'elasticsearch-tracer'
 
-client = Elasticsearch::Client.new
+client = Elasticsearch::TracingClient.new
 client.transport = Elasticsearch::Tracer::Transport.new(tracer: OpenTracing.global_tracer,
                                                         active_span: -> { OpenTracing.global_tracer.active_span },
                                                         transport: client.transport)
