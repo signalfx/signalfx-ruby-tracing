@@ -10,6 +10,7 @@ module SignalFx
       class << self
 
         attr_reader :ingest_url
+        attr_accessor :tracer
 
         def configure(tracer: nil,
                       ingest_url: ENV['SIGNALFX_INGEST_URL'] || 'https://ingest.signalfx.com/v1/trace',
