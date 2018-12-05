@@ -125,6 +125,20 @@ end
 
 For more detailed usage, please check the instrumenation's page.
 
+## Mysql2
+
+Mysql2 instrumentation traces all queries performed with the Mysql2 client.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-mysql2-tracer)
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Mysql2)
+end
+```
+
 ## Net::HTTP
 
 This automatically traces all requests using Net::HTTP.
