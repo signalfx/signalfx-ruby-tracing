@@ -67,6 +67,38 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Elasticsearch
+
+Elasticsearch queries through the Ruby client are traced using a wrapper around
+the transport.
+
+The source for the instrumentation is located [here](https://github.com/iaintshine/ruby-elasticsearch-tracer).
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Elasticsearch, auto_instrument: true)
+end
+```
+
+When the `auto_instrument` option is `true`, it will allow all new Elasticsearch
+clients to automatically wrap the default or configured transport and get
+traces for queries. No additional configuration is necessary.
+
+Alternatively, the instrumentation can be used selectively by setting a custom
+transport on the clients to be traced manually:
+
+```ruby
+require 'elasticsearch'
+require 'elasticsearch-tracer'
+
+client = Elasticsearch::TracingClient.new
+client.transport = Elasticsearch::Tracer::Transport.new(tracer: OpenTracing.global_tracer,
+                                                        active_span: -> { OpenTracing.global_tracer.active_span },
+                                                        transport: client.transport)
+```
+
 ## Faraday
 
 Faraday HTTP client instrumentation automatically creates spans for outgoing
