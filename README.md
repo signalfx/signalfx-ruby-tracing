@@ -129,7 +129,7 @@ For more detailed usage, please check the instrumenation's page.
 
 Mysql2 instrumentation traces all queries performed with the Mysql2 client.
 
-The source for this instrumentation is located [here](https://github.com/signalfx/ruby-mysql2-tracer)
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-mysql2-instrumentation)
 
 ### Usage
 
@@ -143,7 +143,7 @@ end
 
 This automatically traces all requests using Net::HTTP.
 
-The source for this instrumentation is located [here](https://github.com/signalfx/net-http-tracer).
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-net-http-instrumentation).
 
 ### Usage
 
@@ -213,7 +213,7 @@ registers a Sinatra extension that uses `rack-tracer` to trace requests and
 monkey-patches to trace view rendering. Rack instrumentation is automatically
 enabled when using Sinatra instrumentation.
 
-The source for this instrumentation is located [here](https://github.com/signalfx/sinatra-tracer).
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-sinatra-instrumentation).
 
 ### Usage
 
@@ -222,4 +222,3 @@ SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Sinatra)
 end
 ```
-
