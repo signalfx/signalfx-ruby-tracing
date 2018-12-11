@@ -175,7 +175,7 @@ Rails applications can be traced using the notifications provided by ActiveSuppo
 It can use `rack-tracer` to trace by requests, or it'll try to group spans by
 request ID.
 
-The source for this instrumentation is located [here](https://github.com/achandras/ruby-rails-tracer).
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-tracer).
 
 ### Usage
 
