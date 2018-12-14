@@ -1,8 +1,8 @@
 require 'jaeger/client'
 require 'jaeger/client/injectors'
 require 'jaeger/client/extractors'
-require 'signalfx/tracing/async_reporter'
-require 'signalfx/tracing/client'
+require 'signalfx/tracing/reporter/async_reporter'
+require 'signalfx/tracing/reporter/auto_reviving_async_reporter'
 require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
 require 'signalfx/tracing/compat'
@@ -56,8 +56,8 @@ module SignalFx
             headers["X-SF-Token"] = access_token if access_token && !access_token.empty?
 
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
-            @http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
-            reporter = create_reporter
+            http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
+            @reporter = create_reporter(http_sender)
 
             sampler = Jaeger::Client::Samplers::Const.new(true)
 
@@ -68,8 +68,7 @@ module SignalFx
               OpenTracing::FORMAT_RACK => [Jaeger::Client::Extractors::B3RackCodec]
             }
 
-            # @tracer = Jaeger::Client::Tracer.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
-            @tracer = SignalFx::Tracing::Client.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
+            @tracer = Jaeger::Client::Tracer.new(reporter: @reporter, sampler: sampler, injectors: injectors, extractors: extractors)
             OpenTracing.global_tracer = @tracer
           else
             @tracer = tracer
@@ -81,17 +80,17 @@ module SignalFx
         # self-reviving reporter. The main use for this is
         # when the process with the tracer gets forked or goes through some
         # other process that kills child threads.
-        def create_reporter
+        def create_reporter(sender)
           if @fork_safe
-            SignalFx::Tracing::AsyncReporter.new(@http_sender, 1)
+            SignalFx::Tracing::AutoRevivingAsyncReporter.new(sender, 1)
           else
-            Jaeger::Client::AsyncReporter.create(sender: @http_sender, flush_interval: 1)
+            SignalFx::Tracing::AsyncReporter.new(sender, 1)
           end
         end
 
-        # This will set a new reporter, creating one if it's not provided.
-        def set_reporter(reporter: create_reporter)
-          @tracer.set_reporter(reporter) if @tracer.respond_to?(:set_tracer)
+        # at the moment this just allows calling a revive method on the reporter
+        def revive
+          @reporter.revive_poll_thread
         end
       end
     end

@@ -7,7 +7,7 @@ module SignalFx
 
       def self.add_compat(mod)
         @compat = [] unless @compat
-        @compat.append(mod)
+        @compat.push(mod)
       end
     end
   end

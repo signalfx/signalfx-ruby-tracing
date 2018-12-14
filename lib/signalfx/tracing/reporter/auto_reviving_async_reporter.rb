@@ -7,22 +7,23 @@ require 'jaeger/client/async_reporter'
 # This checks for the thread's before pushing in a span to the buffer.
 # If it doesn't exist, it creates a new thread.
 #
-# This should make its way into the client's AsyncReporter at some point.
+# If you have control over hooking into fork events, signalfx/tracing/async_reporter
+# and reviving it should be preferred.
 
 module SignalFx
   module Tracing
-    class AsyncReporter < Jaeger::Client::AsyncReporter
+    class AutoRevivingAsyncReporter < Jaeger::Client::AsyncReporter
       def initialize(sender, flush_interval)
         @flush_interval = flush_interval
         super(sender)
       end
 
       def report(span)
-        start_poll_thread if !@poll_thread
+        revive_poll_thread if !@poll_thread
         super
       end
 
-      def start_poll_thread
+      def revive_poll_thread
         @poll_thread = Thread.new do
           loop do
             flush
