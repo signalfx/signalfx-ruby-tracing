@@ -46,7 +46,7 @@ Gem::Specification.new do |spec|
 
   # forks
   spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1.0"
-  spec.add_dependency "elasticsearch-tracer", "~> 1.0"
+  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1.0"
 
   # external
   spec.add_dependency "faraday-tracer", "~> 0.7.0"
