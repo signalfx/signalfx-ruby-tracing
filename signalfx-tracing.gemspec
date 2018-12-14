@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mysql2-instrumentation", "~> 0.1"
 
   # forks
-  spec.add_dependency "rails-tracer", "~> 0.5.0"
+  spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1.0"
   spec.add_dependency "elasticsearch-tracer", "~> 1.0"
 
   # external

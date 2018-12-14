@@ -63,7 +63,7 @@ This section contains details and configuration for specific frameworks.
 
 ### Web servers
 
-- Puma
+- Puma >= 5.0.0
 
 ### Libraries/Frameworks
 
