@@ -2,8 +2,10 @@ require 'jaeger/client'
 require 'jaeger/client/injectors'
 require 'jaeger/client/extractors'
 require 'signalfx/tracing/async_reporter'
+require 'signalfx/tracing/client'
 require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
+require 'signalfx/tracing/compat'
 require 'thread'
 
 module SignalFx
@@ -12,15 +14,19 @@ module SignalFx
 
       class << self
 
-        attr_reader :ingest_url
+        attr_reader :ingest_url, :service_name, :access_token
         attr_accessor :tracer
 
         def configure(tracer: nil,
                       ingest_url: ENV['SIGNALFX_INGEST_URL'] || 'https://ingest.signalfx.com/v1/trace',
                       service_name: ENV['SIGNALFX_SERVICE_NAME'] || "signalfx-ruby-tracing",
                       access_token: ENV['SIGNALFX_ACCESS_TOKEN'],
-                      auto_instrument: false)
+                      auto_instrument: false,
+                      fork_safe: false)
           @ingest_url = ingest_url
+          @service_name = service_name
+          @access_token = access_token
+          @fork_safe = fork_safe
           set_tracer(tracer: tracer, service_name: service_name, access_token: access_token)
           if auto_instrument
             Register.available_libs.each_pair do |key, value|
@@ -29,6 +35,8 @@ module SignalFx
           else
             yield self
           end
+
+          Compat.apply
         end
 
         def instrument(to_patch, **args)
@@ -48,8 +56,8 @@ module SignalFx
             headers["X-SF-Token"] = access_token if access_token && !access_token.empty?
 
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
-            http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
-            reporter = SignalFx::Tracing::AsyncReporter.new(http_sender, 1)
+            @http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
+            reporter = create_reporter
 
             sampler = Jaeger::Client::Samplers::Const.new(true)
 
@@ -60,11 +68,30 @@ module SignalFx
               OpenTracing::FORMAT_RACK => [Jaeger::Client::Extractors::B3RackCodec]
             }
 
-            @tracer = Jaeger::Client::Tracer.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
+            # @tracer = Jaeger::Client::Tracer.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
+            @tracer = SignalFx::Tracing::Client.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
             OpenTracing.global_tracer = @tracer
           else
             @tracer = tracer
           end
+        end
+
+        # This method will either use the default reporter, which will not check
+        # for the sender thread, or if fork_safe is true then it will create the
+        # self-reviving reporter. The main use for this is
+        # when the process with the tracer gets forked or goes through some
+        # other process that kills child threads.
+        def create_reporter
+          if @fork_safe
+            SignalFx::Tracing::AsyncReporter.new(@http_sender, 1)
+          else
+            Jaeger::Client::AsyncReporter.create(sender: @http_sender, flush_interval: 1)
+          end
+        end
+
+        # This will set a new reporter, creating one if it's not provided.
+        def set_reporter(reporter: create_reporter)
+          @tracer.set_reporter(reporter) if @tracer.respond_to?(:set_tracer)
         end
       end
     end
