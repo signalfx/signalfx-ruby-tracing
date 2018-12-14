@@ -3,16 +3,19 @@
 ## Usage
 
 Configure the instrumentation anywhere in the setup portion of your code or before doing anything
-that needs to be traced. For example, in `config/initializers/tracing.rb` for Rails.
+that needs to be traced.
 
-This can be done automatically, where the auto-instrumenter will check for
-modules defined in the code and instrument them if available:
+For Rails, this would go in `config/initializer/tracing.rb`.
+
+The instrumentation can be done automatically, where the auto-instrumenter will
+check for modules defined in the code and instrument them if available:
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure(auto_instrument:true)
 ```
 
-or manually in a block:
+Manual configuration may be desirable when only some libraries should be traced.
+These instrumentations to can be selected in a block:
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |patcher|
@@ -20,6 +23,8 @@ SignalFx::Tracing::Instrumenter.configure do |patcher|
     ...
 end
 ```
+
+Valid lib names are listed below with the instrumentation documentation.
 
 `configure` accepts several optional parameters:
 - `tracer`: a preconfigured OpenTracing tracer to use. If one is not provided,
@@ -50,7 +55,30 @@ Agent or Smart Gateway.
 
 # Instrumentation
 
-Details and configuration for specific frameworks.
+This section contains details and configuration for specific frameworks.
+
+### Runtimes
+
+- MRI Ruby (CRuby) 2.0+
+
+### Web servers
+
+- Puma
+
+### Libraries/Frameworks
+
+| Library       | Versions Supported |
+| ------------- | ------------------ |
+| ActiveRecord  | > 3.2              |
+| Elasticsearch | >= 5.x             |
+| Faraday       | > 0.9.2            |
+| Mongo         | >= 2.1             |
+| Mysql2        | >= 0.5.0           |
+| Net::HTTP     | Ruby > 2.0         |
+| Rack          |                    |
+| Rails         |                    |
+| REST Client   | >= 2.0.0           |
+| Sinatra       | >= 1.1.4           |
 
 ## Active Record
 
@@ -72,7 +100,7 @@ end
 Elasticsearch queries through the Ruby client are traced using a wrapper around
 the transport.
 
-The source for the instrumentation is located [here](https://github.com/iaintshine/ruby-elasticsearch-tracer).
+The forked source for the instrumentation is located [here](https://github.com/signalfx/ruby-elasticsearch-tracer).
 
 ### Usage
 
@@ -175,7 +203,7 @@ Rails applications can be traced using the notifications provided by ActiveSuppo
 It can use `rack-tracer` to trace by requests, or it'll try to group spans by
 request ID.
 
-The source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-tracer).
+The forked source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-tracer).
 
 ### Usage
 
@@ -197,6 +225,8 @@ end
 
 RestClient requests can be patched to automatically be wrapped in a span. It
 will also inject the span context so remote services can extract it.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-restclient-instrumentation).
 
 ### Usage
 
