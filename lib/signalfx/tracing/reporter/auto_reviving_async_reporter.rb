@@ -8,28 +8,15 @@ require 'jaeger/client/async_reporter'
 # If it doesn't exist, it creates a new thread.
 #
 # If you have control over hooking into fork events, signalfx/tracing/async_reporter
-# and reviving it should be preferred.
+# and reviving it should be preferred to avoid an unnecessary check with every
+# reported span.
 
 module SignalFx
   module Tracing
-    class AutoRevivingAsyncReporter < Jaeger::Client::AsyncReporter
-      def initialize(sender, flush_interval)
-        @flush_interval = flush_interval
-        super(sender)
-      end
-
+    class AutoRevivingAsyncReporter < SignalFx::Tracing::AsyncReporter
       def report(span)
         revive_poll_thread if !@poll_thread
         super
-      end
-
-      def revive_poll_thread
-        @poll_thread = Thread.new do
-          loop do
-            flush
-            sleep(@flush_interval)
-          end
-        end
       end
     end
   end
