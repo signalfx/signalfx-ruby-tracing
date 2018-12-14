@@ -1,6 +1,7 @@
 require 'jaeger/client'
 require 'jaeger/client/injectors'
 require 'jaeger/client/extractors'
+require 'signalfx/tracing/async_reporter'
 require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
 require 'thread'
@@ -47,8 +48,10 @@ module SignalFx
             headers["X-SF-Token"] = access_token if access_token && !access_token.empty?
 
             encoder = Jaeger::Client::Encoders::ThriftEncoder.new(service_name: service_name)
-
             http_sender = SignalFx::Tracing::HttpSenderWithFlag.new(url: @ingest_url, headers: headers, encoder: encoder)
+            reporter = SignalFx::Tracing::AsyncReporter.new(http_sender, 1)
+
+            sampler = Jaeger::Client::Samplers::Const.new(true)
 
             injectors = {
               OpenTracing::FORMAT_RACK => [Jaeger::Client::Injectors::B3RackCodec]
@@ -57,11 +60,7 @@ module SignalFx
               OpenTracing::FORMAT_RACK => [Jaeger::Client::Extractors::B3RackCodec]
             }
 
-            @tracer = Jaeger::Client.build(service_name: service_name,
-                                           sender: http_sender,
-                                           injectors: injectors,
-                                           extractors: extractors,
-                                           flush_interval: 1)
+            @tracer = Jaeger::Client::Tracer.new(reporter: reporter, sampler: sampler, injectors: injectors, extractors: extractors)
             OpenTracing.global_tracer = @tracer
           else
             @tracer = tracer
