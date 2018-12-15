@@ -36,7 +36,8 @@ Gem::Specification.new do |spec|
 
   # TODO pin versions once consistent across all dependencies
   spec.add_dependency "opentracing", "> 0.3.0"
-  spec.add_dependency "jaeger-client", "~> 0.6.1"
+  # spec.add_dependency "jaeger-client", "~> 0.6.1"
+  spec.add_dependency "jaeger-client", "~> 0.7.0"
 
   spec.add_dependency "sinatra-instrumentation", "~> 0.1"
   spec.add_dependency "nethttp-instrumentation", "~> 0.1"
@@ -45,8 +46,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mysql2-instrumentation", "~> 0.1"
 
   # forks
-  spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1.0"
-  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1.0"
+  spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1"
+  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1"
 
   # external
   spec.add_dependency "faraday-tracer", "~> 0.7.0"
