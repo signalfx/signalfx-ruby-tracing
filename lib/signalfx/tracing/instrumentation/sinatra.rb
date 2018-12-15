@@ -14,7 +14,7 @@ module SignalFx
               return
             end
 
-            require 'sinatra/tracer'
+            require 'sinatra/instrumentation'
           end
         end
       end
