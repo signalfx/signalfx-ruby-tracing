@@ -8,10 +8,10 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
-            require 'net/http/tracer'
+            require 'net/http/instrumentation'
 
             ignore_request = lambda { Thread.current.thread_variable_get(:http_sender_thread) }
-            ::Net::Http::Tracer.instrument(ignore_request: ignore_request)
+            ::Net::Http::Instrumentation.instrument(ignore_request: ignore_request)
           end
         end
       end
