@@ -56,5 +56,8 @@ module SignalFx
         end
       end
     end
+
+    # auto-configure if the correct env var is set
+    Instrumenter.configure(auto_instrument: true) if ENV['SIGNALFX_AUTO_INSTRUMENT'] == 'true'
   end
 end
