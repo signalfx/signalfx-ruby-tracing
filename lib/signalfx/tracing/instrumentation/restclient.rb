@@ -16,7 +16,9 @@ module SignalFx
 
             require 'restclient/instrumentation'
             
-            ::RestClient::Instrumentation.instrument
+            tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
+            propagate = opts.fetch(:propagate, false)
+            ::RestClient::Instrumentation.instrument(tracer: tracer, propagate: propagate)
           end
         end
       end

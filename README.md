@@ -232,9 +232,15 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
-    p.instrument(:RestClient)
+    p.instrument(:RestClient, tracer: tracer, propagate: true)
 end
 ```
+
+Arguments:
+- `tracer`: Optional custom tracer to use for this instrumentation
+  - Default: `OpenTracing.global_tracer`
+- `propagate`: Propagate spans to the request endpoint.
+  - Default: `false`
 
 ## Sinatra
 
