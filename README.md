@@ -167,6 +167,20 @@ end
 
 For more detailed usage, please check the instrumentation's page.
 
+## Mongo
+
+Mongo driver instrumentation traces queries performed through the Ruby Mongodb driver.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-mongodb-instrumentation)
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:MongoDB)
+end
+```
+
 ## Mysql2
 
 Mysql2 instrumentation traces all queries performed with the Mysql2 client.
