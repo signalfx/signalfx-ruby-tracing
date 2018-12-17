@@ -1,5 +1,19 @@
 # Ruby auto-instrumenter
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'signalfx-tracing'
+```
+
+and then execute:
+
+```bash
+$ bundle install
+```
+
 ## Usage
 
 Configure the instrumentation anywhere in the setup portion of your code or before doing anything
@@ -75,8 +89,8 @@ This section contains details and configuration for specific frameworks.
 | Mongo         | >= 2.1             |
 | Mysql2        | >= 0.5.0           |
 | Net::HTTP     | Ruby > 2.0         |
-| Rack          |                    |
-| Rails         |                    |
+| Rack          | >= 2.0             |
+| Rails         | >= 4.2.0           |
 | REST Client   | >= 2.0.0           |
 | Sinatra       | >= 1.1.4           |
 
@@ -151,7 +165,7 @@ conn = Faraday.new(url: 'http://localhost:3000/') do |faraday|
 end
 ```
 
-For more detailed usage, please check the instrumenation's page.
+For more detailed usage, please check the instrumentation's page.
 
 ## Mysql2
 
