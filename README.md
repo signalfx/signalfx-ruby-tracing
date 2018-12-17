@@ -251,6 +251,10 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+Note that if `rack_tracer` is set to `false`, requests propagated to the Rails
+app will not be extracted. For example, if a traced service makes a request to
+an endpoint served by the Rails app, it will not be automatically nested.
+
 ## RestClient
 
 RestClient requests can be patched to automatically be wrapped in a span. It
