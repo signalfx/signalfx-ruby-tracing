@@ -16,7 +16,8 @@ module SignalFx
 
             require 'mysql2/instrumentation'
 
-            ::Mysql2::Instrumentation.instrument(tracer: SignalFx::Tracing::Instrumenter.tracer)
+            ::Mysql2::Instrumentation.instrument(tracer: SignalFx::Tracing::Instrumenter.tracer) if !@instrumented
+            @instrumented = true
           end
         end
       end

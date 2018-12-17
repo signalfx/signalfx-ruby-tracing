@@ -16,7 +16,8 @@ module SignalFx
 
             require 'faraday/tracer'
 
-            patch_initialize
+            patch_initialize if !@instrumented
+            @instrumented = true
           end
 
           # somewhat messy, but this lets connections be traced without manual

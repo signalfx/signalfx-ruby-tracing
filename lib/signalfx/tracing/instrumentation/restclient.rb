@@ -18,7 +18,8 @@ module SignalFx
             
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
             propagate = opts.fetch(:propagate, false)
-            ::RestClient::Instrumentation.instrument(tracer: tracer, propagate: propagate)
+            ::RestClient::Instrumentation.instrument(tracer: tracer, propagate: propagate) if !@instrumented
+            @instrumented = true
           end
         end
       end

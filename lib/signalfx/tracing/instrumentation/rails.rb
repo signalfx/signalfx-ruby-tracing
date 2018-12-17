@@ -8,6 +8,8 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
+            return if @instrumented
+
             # instrument supported versions
             return if !defined?(::Rails) or Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('3.2')
 
@@ -21,6 +23,8 @@ module SignalFx
             end
 
             ::Rails::Tracer.instrument(full_trace: true)
+
+            @instrumented = true
           end
         end
       end

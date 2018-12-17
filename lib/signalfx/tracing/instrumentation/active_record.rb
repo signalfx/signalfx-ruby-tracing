@@ -17,7 +17,8 @@ module SignalFx
             end
 
             require 'active_record/opentracing'
-            ::ActiveRecord::OpenTracing.instrument
+            ::ActiveRecord::OpenTracing.instrument if !@instrumented
+            @instrumented = true
           end
         end
       end
