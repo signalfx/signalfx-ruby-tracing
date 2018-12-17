@@ -205,9 +205,11 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
-    p.instrument(:NetHttp)
+    p.instrument(:NetHttp, tracer: tracer)
 end
 ```
+
+An optional `tracer` named argument can be provided to use a custom tracer. It will default to `OpenTracing.global_tracer` if not provided.
 
 ## Rack
 
