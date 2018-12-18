@@ -83,6 +83,14 @@ This section contains details and configuration for specific frameworks.
 - Puma >= 3.0.0
 - Passenger >= 5.0.25
 
+Instrumentation for routes using these web servers is provided through Rack.
+If using a framework that builds on top of Rack, such as Rails or Sinatra, our
+instrumentation includes Rack instrumentation. In these cases, the routes
+through the web server will be automatically traced.
+
+When interfacing with these web servers as a Rack application, please configure
+[Rack instrumentation](#rack) and insert it as middleware.
+
 ### Libraries/Frameworks
 
 | Library       | Versions Supported |
@@ -229,6 +237,8 @@ The source for this instrumentation is located [here](https://github.com/opentra
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Rack)
 end
+
+use Rack::Tracer
 ```
 
 ## Rails
