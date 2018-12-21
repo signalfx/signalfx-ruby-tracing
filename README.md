@@ -103,6 +103,7 @@ When interfacing with these web servers as a Rack application, please configure
 | Net::HTTP     | Ruby > 2.0         |
 | Rack          | >= 2.0             |
 | Rails         | >= 4.2.0           |
+| Redis         | >= 4.0.1           |
 | REST Client   | >= 2.0.0           |
 | Sinatra       | >= 1.1.4           |
 
@@ -268,6 +269,24 @@ end
 Note that if `rack_tracer` is set to `false`, requests propagated to the Rails
 app will not be extracted. For example, if a traced service makes a request to
 an endpoint served by the Rails app, it will not be automatically nested.
+
+## Redis
+
+This instrumentation traces commands performed using the [Redis client](https://github.com/redis/redis-rb).
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-redis-instrumentation).
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Redis, tracer: tracer)
+end
+```
+
+Arguments:
+- `tracer`: Optional custom tracer to use for this instrumentation
+  - Default: `OpenTracing.global_tracer`
 
 ## RestClient
 

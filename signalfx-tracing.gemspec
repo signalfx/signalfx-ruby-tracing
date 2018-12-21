@@ -44,6 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "restclient-instrumentation", "~> 0.1"
   spec.add_dependency "mongodb-instrumentation", "~> 0.1"
   spec.add_dependency "mysql2-instrumentation", "~> 0.1"
+  spec.add_dependency "redis-instrumentation", "~> 0.1"
 
   # forks
   spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1"
