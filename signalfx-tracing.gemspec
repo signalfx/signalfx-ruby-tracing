@@ -49,9 +49,9 @@ Gem::Specification.new do |spec|
   # forks
   spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1"
   spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1"
+  spec.add_dependency "signalfx-faraday-instrumentation", "~> 0.1.0"
 
   # external
-  spec.add_dependency "faraday-tracer", "~> 0.7.0"
   spec.add_dependency "rack-tracer", "~> 0.8"
   spec.add_dependency "activerecord-opentracing", "~> 0.2.1"
 end
