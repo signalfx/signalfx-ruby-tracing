@@ -1,4 +1,3 @@
-require 'jaeger/client/http_sender'
 
 # This child class of HttpSender exists to allow Net::HTTP instrumentation to
 # ignore requests made by the tracer. The tracer uses the Thrift HTTP Transport,

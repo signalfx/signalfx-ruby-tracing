@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   # TODO pin versions once consistent across all dependencies
   spec.add_dependency "opentracing", "> 0.3.0"
   # spec.add_dependency "jaeger-client", "~> 0.6.1"
-  spec.add_dependency "jaeger-client", "~> 0.7.0"
+  spec.add_dependency "jaeger-client", "~> 0.10.0"
 
   spec.add_dependency "sinatra-instrumentation", "~> 0.1"
   spec.add_dependency "nethttp-instrumentation", "~> 0.1"

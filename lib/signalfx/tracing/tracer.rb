@@ -1,4 +1,3 @@
-require 'jaeger/client/tracer'
 
 # The default jaeger tracer doesn't expose @reporter, and attr_accessor can't
 # be added after the fact in a child class. So this just adds an old-fashioned
