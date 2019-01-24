@@ -50,9 +50,6 @@ Valid lib names are listed below with the instrumentation documentation.
   - Default: `signalfx-ruby-tracing`
 - `access_token`: SignalFx access token for authentication.
   - Default: `''`
-- `fork_safe`: If `true`, makes the tracer safe to fork if events cannot
-  be controlled
-  - Default: `false`
 
 Environment variables can be used to configure `service_name` and `access_token`
 if not given to the `configure` method.
@@ -325,18 +322,4 @@ SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Sinatra)
 end
 ```
-
-## Troubleshooting
-
-### Forking
-
-If spans are no longer sent after forking a process, the span reporter thread
-has been lost while copying to the process.
-
-The reporter can be revived by calling `SignalFx::Tracing::Instrumenter.revive`
-in the newly created process.
-
-When the new process can't be handled directly, setting `fork_safe: true`
-when configuring the instrumentation will use a reporter that checks and revives
-itself every time a span is reported.
 

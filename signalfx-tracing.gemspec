@@ -36,20 +36,19 @@ Gem::Specification.new do |spec|
 
   # TODO pin versions once consistent across all dependencies
   spec.add_dependency "opentracing", "> 0.3.0"
-  # spec.add_dependency "jaeger-client", "~> 0.6.1"
-  spec.add_dependency "jaeger-client", "~> 0.7.0"
+  spec.add_dependency "jaeger-client", "~> 0.10.0"
 
-  spec.add_dependency "sinatra-instrumentation", "~> 0.1"
-  spec.add_dependency "nethttp-instrumentation", "~> 0.1"
-  spec.add_dependency "restclient-instrumentation", "~> 0.1"
-  spec.add_dependency "mongodb-instrumentation", "~> 0.1"
-  spec.add_dependency "mysql2-instrumentation", "~> 0.1"
-  spec.add_dependency "redis-instrumentation", "~> 0.1"
+  spec.add_dependency "sinatra-instrumentation", "~> 0.1.2"
+  spec.add_dependency "nethttp-instrumentation", "~> 0.1.2"
+  spec.add_dependency "restclient-instrumentation", "~> 0.1.1"
+  spec.add_dependency "mongodb-instrumentation", "~> 0.1.1"
+  spec.add_dependency "mysql2-instrumentation", "~> 0.1.0"
+  spec.add_dependency "redis-instrumentation", "~> 0.1.0"
 
   # forks
-  spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1"
-  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1"
-  spec.add_dependency "signalfx-faraday-instrumentation", "~> 0.1.0"
+  spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1.4"
+  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1.0"
+  spec.add_dependency "signalfx-faraday-instrumentation", "~> 0.1.1"
 
   # external
   spec.add_dependency "rack-tracer", "~> 0.8"

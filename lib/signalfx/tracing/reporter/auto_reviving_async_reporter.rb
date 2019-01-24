@@ -1,5 +1,3 @@
-require 'jaeger/client/async_reporter'
-
 # The Jaeger client's AsyncReporter creates a thread to handle sending spans on
 # a flush interval. However, when a forking web server like Passenger forks a
 # process that includes the tracer, the sender thread is lost.
