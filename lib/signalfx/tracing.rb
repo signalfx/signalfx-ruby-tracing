@@ -72,6 +72,10 @@ module SignalFx
             @tracer = tracer
           end
         end
+
+        def revive
+          set_tracer(service_name: @service_name, access_token: @access_token)
+        end
       end
     end
 
