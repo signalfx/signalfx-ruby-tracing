@@ -102,6 +102,7 @@ When interfacing with these web servers as a Rack application, please configure
 | Rails         | >= 4.2.0           |
 | Redis         | >= 4.0.1           |
 | REST Client   | >= 2.0.0           |
+| Sequel        | >= 3.48.0          |
 | Sinatra       | >= 1.1.4           |
 
 ## Active Record
@@ -305,6 +306,24 @@ Arguments:
   - Default: `OpenTracing.global_tracer`
 - `propagate`: Propagate spans to the request endpoint.
   - Default: `false`
+
+## Sequel
+
+Sequel instrumentation adds extensions to the Database and Dataset to trace queries.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-sequel-instrumentation).
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Sequel)
+end
+```
+
+Arguments:
+- `tracer`: Optional custom tracer for this instrumentation
+  - Default: `OpenTracing.global_tracer`
 
 ## Sinatra
 
