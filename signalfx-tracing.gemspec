@@ -45,6 +45,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mysql2-instrumentation", "~> 0.1.0"
   spec.add_dependency "redis-instrumentation", "~> 0.1.0"
   spec.add_dependency "sequel-instrumentation", "~> 0.1.0"
+  spec.add_dependency "grape-instrumentation", "~> 0.1.0"
 
   # forks
   spec.add_dependency "signalfx-rails-instrumentation", "~> 0.1.4"

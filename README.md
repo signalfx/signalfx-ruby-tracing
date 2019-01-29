@@ -95,6 +95,7 @@ When interfacing with these web servers as a Rack application, please configure
 | ActiveRecord  | > 3.2              |
 | Elasticsearch | >= 5.x             |
 | Faraday       | > 0.9.2            |
+| Grape         | > 1.0.0            |
 | Mongo         | >= 2.1             |
 | Mysql2        | >= 0.5.0           |
 | Net::HTTP     | Ruby > 2.0         |
@@ -177,6 +178,40 @@ end
 ```
 
 For more detailed usage, please check the instrumentation's page.
+
+## Grape
+
+This instrumentation subscribes to ActiveSupport notifications emitted by the Grape API.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-grape-instrumentation)
+
+### Usage
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Grape)
+end
+```
+
+`instrument` takes two optional arguments:
+- `tracer`: custom tracer to use. Defaults to `OpenTracing.global_tracer`
+- `parent_span`: parent span to group spans or block that returns a span. Default: `nil`
+
+Other than `parent_span`, spans can also be grouped by Rack request.
+
+In order to use the Rack instrumentation and group spans by request, you must
+insert the middleware in your API class.
+
+```ruby
+require 'rack/tracer'
+
+class MyAPI << Grape::API
+  insert 0, Rack::Tracer
+  ...
+end
+```
+
+Please see the instrumentation's page for more usage details.
 
 ## Mongo
 
