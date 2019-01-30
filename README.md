@@ -181,7 +181,9 @@ For more detailed usage, please check the instrumentation's page.
 
 ## Grape
 
-This instrumentation subscribes to ActiveSupport notifications emitted by the Grape API.
+This instrumentation subscribes to ActiveSupport notifications emitted by the
+Grape API. It patches `Grape::API` to automatically insert the `Rack::Tracer`
+middleware and trace requests.
 
 The source for this instrumentation is located [here](https://github.com/signalfx/ruby-grape-instrumentation)
 
@@ -196,11 +198,10 @@ end
 `instrument` takes two optional arguments:
 - `tracer`: custom tracer to use. Defaults to `OpenTracing.global_tracer`
 - `parent_span`: parent span to group spans or block that returns a span. Default: `nil`
+- `disable_patching`: disable patching if managing the middleware stack manually. Default: `false`
 
-Other than `parent_span`, spans can also be grouped by Rack request.
-
-In order to use the Rack instrumentation and group spans by request, you must
-insert the middleware in your API class.
+If patching is disabled, but spans nested by request are still desired, then the
+Rack middleware must be manually added to the API class.
 
 ```ruby
 require 'rack/tracer'
@@ -211,7 +212,7 @@ class MyAPI << Grape::API
 end
 ```
 
-Please see the instrumentation's page for more usage details.
+Please see the instrumentation's page for more details.
 
 ## Mongo
 
