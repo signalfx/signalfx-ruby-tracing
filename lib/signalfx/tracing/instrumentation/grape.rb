@@ -1,4 +1,4 @@
-require 'opentracing'
+require 'opentracing' 
 
 module SignalFx
   module Tracing
@@ -30,6 +30,8 @@ module SignalFx
           end
 
           def patch_middleware
+            require 'rack/tracer'
+
             ::Grape::API.class_eval do
               if Gem::Version.new(::Grape::VERSION) >= Gem::Version.new('1.2.0')
                 singleton_class.send(:alias_method, :initial_setup_original, :initial_setup)
