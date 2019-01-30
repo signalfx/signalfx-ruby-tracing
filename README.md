@@ -195,7 +195,7 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
-`instrument` takes two optional arguments:
+`instrument` takes these optional arguments:
 - `tracer`: custom tracer to use. Defaults to `OpenTracing.global_tracer`
 - `parent_span`: parent span to group spans or block that returns a span. Default: `nil`
 - `disable_patching`: disable patching if managing the middleware stack manually. Default: `false`

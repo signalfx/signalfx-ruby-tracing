@@ -1,4 +1,4 @@
-require 'opentracing' 
+require 'opentracing'
 
 module SignalFx
   module Tracing
