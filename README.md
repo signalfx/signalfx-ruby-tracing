@@ -90,21 +90,21 @@ When interfacing with these web servers as a Rack application, please configure
 
 ### Libraries/Frameworks
 
-| Library       | Versions Supported |
-| ------------- | ------------------ |
-| ActiveRecord  | > 3.2              |
-| Elasticsearch | >= 5.x             |
-| Faraday       | > 0.9.2            |
-| Grape         | > 1.0.0            |
-| Mongo         | >= 2.1             |
-| Mysql2        | >= 0.5.0           |
-| Net::HTTP     | Ruby > 2.0         |
-| Rack          | >= 2.0             |
-| Rails         | >= 4.2.0           |
-| Redis         | >= 4.0.1           |
-| REST Client   | >= 2.0.0           |
-| Sequel        | >= 3.48.0          |
-| Sinatra       | >= 1.1.4           |
+| Library                             | Versions Supported |
+| ----------------------------------- | ------------------ |
+| [ActiveRecord](#active-record)      | > 3.2              |
+| [Elasticsearch](#elasticsearch)     | >= 5.x             |
+| [Faraday](#faraday)                 | > 0.9.2            |
+| [Grape](#grape)                     | > 1.0.0            |
+| [Mongo](#mongo)                     | >= 2.1             |
+| [Mysql2](#mysql2)                   | >= 0.5.0           |
+| [Net::HTTP](#nethttp)               | Ruby > 2.0         |
+| [Rack](#rack)                       | >= 2.0             |
+| [Rails](#rails)                     | >= 4.2.0           |
+| [Redis](#redis)                     | >= 4.0.1           |
+| [REST Client](#rest-client)         | >= 2.0.0           |
+| [Sequel](#sequel)                   | >= 3.48.0          |
+| [Sinatra](#sinatra)                 | >= 1.1.4           |
 
 ## Active Record
 
