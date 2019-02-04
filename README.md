@@ -102,7 +102,7 @@ When interfacing with these web servers as a Rack application, please configure
 | [Rack](#rack)                       | >= 2.0             |
 | [Rails](#rails)                     | >= 4.2.0           |
 | [Redis](#redis)                     | >= 4.0.1           |
-| [REST Client](#rest-client)         | >= 2.0.0           |
+| [RestClient](#restclient)           | >= 2.0.0           |
 | [Sequel](#sequel)                   | >= 3.48.0          |
 | [Sinatra](#sinatra)                 | >= 1.1.4           |
 
