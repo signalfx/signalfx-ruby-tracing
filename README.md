@@ -279,10 +279,9 @@ use Rack::Tracer
 ## Rails
 
 Rails applications can be traced using the notifications provided by ActiveSupport.
-It can use `rack-tracer` to trace by requests, or it'll try to group spans by
-request ID.
+It will use `rack-tracer` to trace by requests.
 
-The forked source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-tracer).
+The forked source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-instrumentation).
 
 ### Usage
 
@@ -296,9 +295,13 @@ Optionally, to disable Rack instrumentation, set the `rack_tracer` field to fals
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
-    p.instrument(:Rails, rack_tracer: false)
+    p.instrument(:Rails, rack_tracer: false, exclude_events: [])
 end
 ```
+
+By default, all Rails ActiveSupport notifications are traced. However, if this
+is too noisy, events to ignore can be passed as an array as `exclude_events`.
+A full list of events can be seen on the instrumentation's Readme.
 
 Note that if `rack_tracer` is set to `false`, requests propagated to the Rails
 app will not be extracted. For example, if a traced service makes a request to
