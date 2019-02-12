@@ -11,18 +11,26 @@ module SignalFx
             return if @instrumented
 
             # instrument supported versions
-            return if !defined?(::Rails) or Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('3.2')
+            return if !defined?(::Rails) or Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('4.2')
 
-            require 'rails/tracer'
-            require 'rack/tracer'
-
-            if opts.fetch(:rack_tracer, false)
-              # add rack middlewares
-              ::Rails.configuration.middleware.use(::Rack::Tracer)
-              ::Rails.configuration.middleware.insert_after(::Rack::Tracer, ::Rails::Rack::Tracer)
+            begin
+              require 'activesupport'
+            rescue Error => e
+              return
             end
 
-            ::Rails::Tracer.instrument(full_trace: true)
+            require 'rails/instrumentation'
+            require 'rack/tracer'
+
+            if opts.fetch(:rack_tracer, true)
+              # add rack middlewares
+              ::Rails.configuration.middleware.use(::Rack::Tracer)
+            end
+
+            exclude_events = opts.fetch(:exclude_events, [])
+            tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
+
+            ::Rails::Instrumentation.instrument(tracer: tracer, exclude_events: exclude_events)
 
             @instrumented = true
           end
