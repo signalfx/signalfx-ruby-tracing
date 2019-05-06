@@ -10,12 +10,11 @@ module SignalFx
           def instrument(opts = {})
             return if @instrumented
 
-            # instrument supported versions
-            return if !defined?(::Rails) or Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('4.2')
-
+            # check for required gems
             begin
-              require 'activesupport'
-            rescue Error => e
+              require 'active_support'
+              require 'rails'
+            rescue LoadError
               return
             end
 
@@ -24,7 +23,7 @@ module SignalFx
 
             if opts.fetch(:rack_tracer, true)
               # add rack middlewares
-              ::Rails.configuration.middleware.use(::Rack::Tracer)
+              ::Rails.configuration.middleware.insert(0, ::Rack::Tracer)
             end
 
             exclude_events = opts.fetch(:exclude_events, [])
