@@ -5,8 +5,8 @@ require "signalfx/tracing/version"
 Gem::Specification.new do |spec|
   spec.name          = "signalfx-tracing"
   spec.version       = Signalfx::Tracing::VERSION
-  spec.authors       = ["Ashwin Chandrasekar"]
-  spec.email         = ["achandrasekar@signalfx.com"]
+  spec.authors       = ["SignalFx, Inc."]
+  spec.email         = ["info@signalfx.com"]
 
   spec.summary       = %q{Auto-instrumentation framework for Ruby}
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "restclient-instrumentation", "~> 0.1.1"
   spec.add_dependency "mongodb-instrumentation", "~> 0.1.1"
   spec.add_dependency "mysql2-instrumentation", "~> 0.1.0"
-  spec.add_dependency "redis-instrumentation", "~> 0.1.0"
+  spec.add_dependency "redis-instrumentation", "~> 0.1.1"
   spec.add_dependency "sequel-instrumentation", "~> 0.1.0"
   spec.add_dependency "grape-instrumentation", "~> 0.1.0"
   spec.add_dependency "rails-instrumentation", "~> 0.1.2"
