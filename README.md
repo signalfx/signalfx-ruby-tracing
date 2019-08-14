@@ -44,28 +44,24 @@ Valid lib names are listed below with the instrumentation documentation.
 - `tracer`: a preconfigured OpenTracing tracer to use. If one is not provided,
   a new tracer will be initialized.
   - Default: `nil`
-- `ingest_url`: this is the endpoint to which spans are sent by the tracer.
-  - Default: `https://ingest.signalfx.com/v1/trace`
+- `ingest_url`: this is the Smart Agent or Smart Gateway endpoint to which spans are sent by the tracer.
+  - Default: `http://localhost:9080/v1/trace`
 - `service_name`: service name to send spans under.
   - Default: `signalfx-ruby-tracing`
-- `access_token`: SignalFx access token for authentication.
+- `access_token`: SignalFx access token for authentication.  Unnecessary for most deployments.
   - Default: `''`
 
 Environment variables can be used to configure `service_name` and `access_token`
 if not given to the `configure` method.
 
 ```bash
-export SIGNALFX_ACCESS_TOKEN="<token>"
 export SIGNALFX_SERVICE_NAME="<service_name>"
-export SIGNALFX_INGEST_URL="<url>"
+export SIGNALFX_ENDPOINT_URL="<url>"
+export SIGNALFX_ACCESS_TOKEN="<token>"
 ```
 
 If these environment variables are not set, the values will default to the ones
 listed above.
-
-The `access_token` or `SIGNALFX_ACCESS_TOKEN` only needs to be set when sending
-spans to a SignalFx ingest directly. It is not required when using the Smart
-Agent or Smart Gateway.
 
 # Instrumentation
 
