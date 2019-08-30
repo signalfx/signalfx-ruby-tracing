@@ -18,7 +18,12 @@ module SignalFx
               return
             end
 
-            require 'grape/instrumentation'
+            begin
+              require 'grape/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
             
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
             parent_span = opts.fetch(:parent_span, nil)

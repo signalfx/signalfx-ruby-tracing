@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'mysql2/instrumentation'
+            begin
+              require 'mysql2/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             ::Mysql2::Instrumentation.instrument(tracer: SignalFx::Tracing::Instrumenter.tracer) if !@instrumented
             @instrumented = true

@@ -8,7 +8,12 @@ module SignalFx
         class << self
 
           def instrument(opts = {})
-            require 'net/http/instrumentation'
+            begin
+              require 'net/http/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
             ignore_request = lambda { Thread.current.thread_variable_get(:http_sender_thread) }

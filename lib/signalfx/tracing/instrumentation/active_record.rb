@@ -16,7 +16,12 @@ module SignalFx
               return
             end
 
-            require 'active_record/opentracing'
+            begin
+              require 'active_record/opentracing'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
             ::ActiveRecord::OpenTracing.instrument if !@instrumented
             @instrumented = true
           end

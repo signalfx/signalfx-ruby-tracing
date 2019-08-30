@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'restclient/instrumentation'
+            begin
+              require 'restclient/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
             
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
             propagate = opts.fetch(:propagate, false)

@@ -13,22 +13,11 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/signalfx/signalfx-ruby-tracing"
   spec.license       = "Apache-2.0"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  # if spec.respond_to?(:metadata)
-  #   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  # else
-  #   raise "RubyGems 2.0 or newer is required to protect against " \
-  #     "public gem pushes."
-  # end
-
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = "bin"
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.16"
@@ -38,21 +27,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "opentracing", "> 0.3.0"
   spec.add_dependency "jaeger-client", "~> 0.10.0"
 
-  spec.add_dependency "sinatra-instrumentation", "~> 0.1.2"
+  # We are no longer setting all available instrumentations as dependencies.
+  # Manual installation via bootstrapper or gem.deps.rb is now required.
+  # `sfx-rb-trace-bootstrap -i sinatra,redis,etc.`
+  # `gem install -g`
+
+  # stdlib instrumentations
   spec.add_dependency "nethttp-instrumentation", "~> 0.1.2"
-  spec.add_dependency "restclient-instrumentation", "~> 0.1.1"
-  spec.add_dependency "mongodb-instrumentation", "~> 0.1.1"
-  spec.add_dependency "mysql2-instrumentation", "~> 0.1.0"
-  spec.add_dependency "redis-instrumentation", "~> 0.1.1"
-  spec.add_dependency "sequel-instrumentation", "~> 0.1.0"
-  spec.add_dependency "grape-instrumentation", "~> 0.1.0"
-  spec.add_dependency "rails-instrumentation", "~> 0.1.2"
-
-  # forks
-  spec.add_dependency "signalfx-elasticsearch-instrumentation", "~> 0.1.0"
-  spec.add_dependency "signalfx-faraday-instrumentation", "~> 0.1.1"
-
-  # external
-  spec.add_dependency "rack-tracer", "~> 0.8"
-  spec.add_dependency "activerecord-opentracing", "~> 0.2.1"
 end

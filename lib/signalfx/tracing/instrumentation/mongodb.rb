@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'mongodb/instrumentation'
+            begin
+              require 'mongodb/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             ::MongoDB::Instrumentation.instrument
           end

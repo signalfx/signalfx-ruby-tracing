@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby -rubygems
+require 'optparse'
+require 'ostruct'
+require 'pp'
+
+instrumentations = {
+  "activerecord" => ["activerecord-opentracing", "~> 0.2.1"],
+  "elasticsearch" => ["signalfx-elasticsearch-instrumentation", "~> 0.1.0"],
+  "faraday" => ["signalfx-faraday-instrumentation", "~> 0.1.1"],
+  "grape" => ["grape-instrumentation", "~> 0.1.0"],
+  "mongodb" => ["mongodb-instrumentation", "~> 0.1.1"],
+  "mysql2" => ["mysql2-instrumentation", "~> 0.1.0"],
+  "nethttp" => ["nethttp-instrumentation", "~> 0.1.2"],
+  "rack" => ["rack-tracer", "~> 0.8"],
+  "rails" => ["rails-instrumentation", "~> 0.1.2"],
+  "redis" => ["redis-instrumentation", "~> 0.1.1"],
+  "restclient" => ["restclient-instrumentation", "~> 0.1.1"],
+  "sequel" => ["sequel-instrumentation", "~> 0.1.0"],
+  "sinatra" => ["sinatra-instrumentation", "~> 0.1.2"]
+}
+
+options = OpenStruct.new
+options.target_libraries = []
+
+
+parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: sfx-rb-trace-bootstrap --install-deps [deps]'
+
+  opts.on('-l', '--list', 'List available library instrumentations.') do |l|
+    puts 'Available target libraries:'
+    pp(instrumentations)
+  end
+  opts.on('-i lib1,lib2', '--install-deps lib1,lib2', Array, 'Install instrumentations for target libraries (comma-separated).') do |list|
+    options.target_libraries = list
+  end
+end
+
+
+def install_instrumentors(instrumentors, libs)
+  libs.each do |lib|
+    if instrumentors.has_key?(lib)
+      target = instrumentors[lib]
+      puts %Q{Installing instrumentation for target library "#{lib}": #{target[0]} "#{target[1]}".}
+      Gem.install(*target)
+    else
+      puts %Q{signalfx-tracing has no target library "#{lib}".}
+    end
+  end
+end
+
+parser.parse(ARGV)
+install_instrumentors(instrumentations, options.target_libraries)

@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'rack/tracer'
+            begin
+              require 'rack/tracer'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
           end
         end
       end
