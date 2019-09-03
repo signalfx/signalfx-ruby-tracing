@@ -18,8 +18,13 @@ module SignalFx
               return
             end
 
-            require 'rails/instrumentation'
-            require 'rack/tracer'
+            begin
+              require 'rails/instrumentation'
+              require 'rack/tracer'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             if opts.fetch(:rack_tracer, true)
               # add rack middlewares

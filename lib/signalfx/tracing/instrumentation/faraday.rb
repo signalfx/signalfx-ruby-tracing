@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'faraday/tracer'
+            begin
+              require 'faraday/tracer'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             patch_initialize if !@instrumented
             @instrumented = true

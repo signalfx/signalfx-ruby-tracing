@@ -1,14 +1,52 @@
-# Ruby auto-instrumenter
+# SignalFx-Tracing Library for Ruby: An OpenTracing Auto-Instrumentor
+
+This utility provides users with the ability of automatically configuring OpenTracing community-contributed [instrumentation libraries](https://github.com/opentracing-contrib) for their Ruby application via a single function.
+
+```ruby
+require 'signalfx/tracing'
+
+SignalFx::Tracing::Instrumenter.configure(auto_instrument:true)
+```
 
 ## Installation
 
-Add this line to your application's Gemfile:
+### General installation
+
+```bash
+$ gem install signalfx-tracing
+```
+
+The SignalFx Tracing Library for Ruby requires just enough dependencies to allow custom instrumentation for your application, with target library instrumentations needing to be installed manually.
+The basic installation provides an `sfx-rb-trace-bootstrap` executable to assist with this process, which allows you to specify the desired libraries for instrumentation as a comma-separated list:
+
+```bash
+$ sfx-rb-trace-bootstrap --install-deps rack,rails,activerecord,restclient
+$ # use the --list option to see all available instrumentations
+$ sfx-rb-trace-bootstrap --list
+Available target libraries:
+{"activerecord"=>["activerecord-opentracing", "~> 0.2.1"],
+ < ... >
+ "sinatra"=>["sinatra-instrumentation", "~> 0.1.2"]}
+ ```
+
+If you'd prefer to install all the available instrumentations without the assistance of the `sfx-rb-trace-bootstrap` utility, please install the provided [gem dependencies](./gem.deps.rb).
+
+```bash
+$ # Run from a cloned and updated https://github.com/signalfx/signalfx-ruby-tracing.git
+$ cd signalfx-ruby-tracing
+$ bundle install
+$ gem install -g
+```
+
+### Installation in existing application
+
+Specify the desired dependency by adding this line to your application's Gemfile:
 
 ```ruby
 gem 'signalfx-tracing'
 ```
 
-and then execute:
+Then execute the following (or use your desired installation method for your application).
 
 ```bash
 $ bundle install
@@ -25,6 +63,8 @@ The instrumentation can be done automatically, where the auto-instrumenter will
 check for modules defined in the code and instrument them if available:
 
 ```ruby
+require 'signalfx/tracing'
+
 SignalFx::Tracing::Instrumenter.configure(auto_instrument:true)
 ```
 
@@ -88,7 +128,7 @@ When interfacing with these web servers as a Rack application, please configure
 
 | Library                             | Versions Supported |
 | ----------------------------------- | ------------------ |
-| [ActiveRecord](#active-record)      | > 3.2              |
+| [ActiveRecord](#active-record)      | >= 5.x             |
 | [Elasticsearch](#elasticsearch)     | >= 5.x             |
 | [Faraday](#faraday)                 | > 0.9.2            |
 | [Grape](#grape)                     | > 1.0.0            |
@@ -111,6 +151,11 @@ The source for this instrumentation is located [here](https://github.com/salemov
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i activerecord
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:ActiveRecord)
@@ -125,6 +170,11 @@ the transport.
 The forked source for the instrumentation is located [here](https://github.com/signalfx/ruby-elasticsearch-tracer).
 
 ### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i elasticsearch
+```
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
@@ -159,6 +209,11 @@ The source for this instrumentation is located [here](https://github.com/opentra
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i faraday
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Faraday)
@@ -185,6 +240,11 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i grape
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Grape)
@@ -198,6 +258,11 @@ end
 
 If patching is disabled, but spans nested by request are still desired, then the
 Rack middleware must be manually added to the API class.
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i rack
+```
 
 ```ruby
 require 'rack/tracer'
@@ -218,6 +283,11 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i mongodb
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:MongoDB)
@@ -231,6 +301,11 @@ Mysql2 instrumentation traces all queries performed with the Mysql2 client.
 The source for this instrumentation is located [here](https://github.com/signalfx/ruby-mysql2-instrumentation)
 
 ### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i mysql2
+```
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
@@ -264,6 +339,11 @@ The source for this instrumentation is located [here](https://github.com/opentra
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i rack
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Rack)
@@ -280,6 +360,11 @@ It will use `rack-tracer` to trace by requests.
 The forked source for this instrumentation is located [here](https://github.com/signalfx/ruby-rails-instrumentation).
 
 ### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i rails
+```
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
@@ -311,6 +396,11 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i redis
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Redis, tracer: tracer)
@@ -329,6 +419,11 @@ will also inject the span context so remote services can extract it.
 The source for this instrumentation is located [here](https://github.com/signalfx/ruby-restclient-instrumentation).
 
 ### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i restclient
+```
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
@@ -350,6 +445,11 @@ The source for this instrumentation is located [here](https://github.com/signalf
 
 ### Usage
 
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i sequel
+```
+
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|
     p.instrument(:Sequel)
@@ -370,6 +470,11 @@ enabled when using Sinatra instrumentation.
 The source for this instrumentation is located [here](https://github.com/signalfx/ruby-sinatra-instrumentation).
 
 ### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i sinatra
+```
 
 ```ruby
 SignalFx::Tracing::Instrumenter.configure do |p|

@@ -13,7 +13,12 @@ module SignalFx
               return
             end
 
-            require 'redis/instrumentation'
+            begin
+              require 'redis/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
             ::Redis::Instrumentation.instrument(tracer: tracer)

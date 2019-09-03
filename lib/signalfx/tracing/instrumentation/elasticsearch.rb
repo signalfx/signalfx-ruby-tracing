@@ -18,7 +18,12 @@ module SignalFx
               return
             end
 
-            require 'elasticsearch-tracer'
+            begin
+              require 'elasticsearch-tracer'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
 
             patch_new if opts.fetch(:auto_instrument, false)
 

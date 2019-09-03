@@ -14,7 +14,12 @@ module SignalFx
               return
             end
 
-            require 'sinatra/instrumentation'
+            begin
+              require 'sinatra/instrumentation'
+            rescue LoadError => e
+              puts e.message
+              return
+            end
           end
         end
       end
