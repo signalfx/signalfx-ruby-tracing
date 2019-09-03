@@ -128,7 +128,7 @@ When interfacing with these web servers as a Rack application, please configure
 
 | Library                             | Versions Supported |
 | ----------------------------------- | ------------------ |
-| [ActiveRecord](#active-record)      | >= 5.x             |
+| [ActiveRecord](#active-record)      | ~> 5.0             |
 | [Elasticsearch](#elasticsearch)     | >= 5.x             |
 | [Faraday](#faraday)                 | > 0.9.2            |
 | [Grape](#grape)                     | > 1.0.0            |
