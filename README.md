@@ -129,18 +129,18 @@ When interfacing with these web servers as a Rack application, please configure
 | Library                             | Versions Supported |
 | ----------------------------------- | ------------------ |
 | [ActiveRecord](#active-record)      | ~> 5.0             |
-| [Elasticsearch](#elasticsearch)     | >= 5.x             |
-| [Faraday](#faraday)                 | > 0.9.2            |
-| [Grape](#grape)                     | > 1.0.0            |
-| [Mongo](#mongo)                     | >= 2.1             |
-| [Mysql2](#mysql2)                   | >= 0.5.0           |
-| [Net::HTTP](#nethttp)               | Ruby > 2.0         |
-| [Rack](#rack)                       | >= 2.0             |
-| [Rails](#rails)                     | >= 4.2.0           |
-| [Redis](#redis)                     | >= 4.0.1           |
-| [RestClient](#restclient)           | >= 2.0.0           |
-| [Sequel](#sequel)                   | >= 3.48.0          |
-| [Sinatra](#sinatra)                 | >= 1.1.4           |
+| [Elasticsearch](#elasticsearch)     | >= 6.0.2           |
+| [Faraday](#faraday)                 | >= 0.9.0           |
+| [Grape](#grape)                     | >= 0.13.0          |
+| [Mongo](#mongo)                     | >= 2.1.0           |
+| [Mysql2](#mysql2)                   | >= 0.4.0           |
+| [Net::HTTP](#nethttp)               | Ruby >= 2.0        |
+| [Rack](#rack)                       | >= 0.1             |
+| [Rails](#rails)                     | >= 3.0.0           |
+| [Redis](#redis)                     | >= 4.0.0           |
+| [RestClient](#restclient)           | >= 1.5.0           |
+| [Sequel](#sequel)                   | >= 3.47.0          |
+| [Sinatra](#sinatra)                 | >= 1.0.0           |
 
 ## Active Record
 
