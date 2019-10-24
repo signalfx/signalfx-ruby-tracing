@@ -46,7 +46,7 @@ module SignalFx
                   base_instance_parent.insert(0, ::Rack::Tracer) if !base_instance_parent.middleware.any? { |m| m[2].to_s == 'Rack::Tracer'}
                 end
               else
-                singleton_class.send(:alias_method, :inherited_original, :initial_setup)
+                singleton_class.send(:alias_method, :inherited_original, :inherited)
 
                 def self.inherited(api)
                   inherited_original(api)
