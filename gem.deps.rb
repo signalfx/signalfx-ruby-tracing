@@ -9,6 +9,7 @@ group :instrumentations do
   gem 'redis-instrumentation', '~> 0.1.1'
   gem 'restclient-instrumentation', '~> 0.1.1'
   gem 'sequel-instrumentation', '~> 0.1.0'
+  gem 'sfx-sidekiq-opentracing', '~> 0.0.1'
   gem 'signalfx-elasticsearch-instrumentation', '~> 0.1.0'
   gem 'signalfx-faraday-instrumentation', '~> 0.1.1'
   gem 'sinatra-instrumentation', '~> 0.1.2'
