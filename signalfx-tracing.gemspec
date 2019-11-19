@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   # TODO pin versions once consistent across all dependencies
   spec.add_dependency "opentracing", "> 0.3.0"
-  spec.add_dependency "jaeger-client", "~> 0.10.0"
+  spec.add_dependency "jaeger-client", "~> 1.0.0"
 
   # We are no longer setting all available instrumentations as dependencies.
   # Manual installation via bootstrapper or gem.deps.rb is now required.

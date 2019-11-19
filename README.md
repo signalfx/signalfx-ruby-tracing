@@ -140,6 +140,7 @@ When interfacing with these web servers as a Rack application, please configure
 | [Redis](#redis)                     | >= 4.0.0           |
 | [RestClient](#restclient)           | >= 1.5.0           |
 | [Sequel](#sequel)                   | >= 3.47.0          |
+| [Sidekiq](#sidekiq)                 | >= 0.7.0           |
 | [Sinatra](#sinatra)                 | >= 1.0.0           |
 
 ## Active Record
@@ -459,6 +460,35 @@ end
 Arguments:
 - `tracer`: Optional custom tracer for this instrumentation
   - Default: `OpenTracing.global_tracer`
+
+## Sidekiq
+
+Sidekiq instrumentation traces worker job submissions and execution via [Sidekiq middleware](https://github.com/mperham/sidekiq/wiki/Middleware).
+The instrumenter registers both client and server middleware that use job metadata to
+represent all job submissions and their invocations.  Trace context propagation adds
+to this job metadata to unifiy distributed client and server requests and processing.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-sidekiq-tracer).
+
+### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i sidekiq
+```
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:Sidekiq, propagate: false)
+end
+```
+
+Arguments:
+- `tracer`: Optional custom tracer for this instrumentation
+  - Default: `OpenTracing.global_tracer`
+- `propagate`: Optional boolean to enable/disable trace context injection via job metadata
+  - Default: `true`
+
 
 ## Sinatra
 

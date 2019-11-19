@@ -21,7 +21,7 @@ module SignalFx
           @ingest_url = ingest_url
           @service_name = service_name
           @access_token = access_token
-          set_tracer(tracer: tracer, service_name: service_name, access_token: access_token)
+          set_tracer(tracer: tracer, service_name: service_name, access_token: access_token) if @tracer.nil?
 
           if auto_instrument
             Register.available_libs.each_pair do |key, value|
@@ -55,10 +55,12 @@ module SignalFx
             @reporter = Jaeger::Client::Reporters::RemoteReporter.new(sender: @http_sender, flush_interval: 1)
 
             injectors = {
-              OpenTracing::FORMAT_RACK => [Jaeger::Client::Injectors::B3RackCodec]
+              OpenTracing::FORMAT_RACK => [Jaeger::Client::Injectors::B3RackCodec],
+              OpenTracing::FORMAT_TEXT_MAP => [Jaeger::Client::Injectors::B3RackCodec]
             }
             extractors = {
-              OpenTracing::FORMAT_RACK => [Jaeger::Client::Extractors::B3RackCodec]
+              OpenTracing::FORMAT_RACK => [Jaeger::Client::Extractors::B3RackCodec],
+              OpenTracing::FORMAT_TEXT_MAP => [Jaeger::Client::Extractors::B3TextMapCodec]
             }
 
             @tracer = Jaeger::Client.build(
