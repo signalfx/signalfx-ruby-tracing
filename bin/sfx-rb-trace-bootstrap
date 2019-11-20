@@ -16,7 +16,7 @@ instrumentations = {
   "redis" => ["redis-instrumentation", "~> 0.1.1"],
   "restclient" => ["restclient-instrumentation", "~> 0.1.1"],
   "sequel" => ["sequel-instrumentation", "~> 0.1.0"],
-  "sidekiq" => ["sfx-sidekiq-opentracing", "~> 0.0.1"],
+  "sidekiq" => ["sfx-sidekiq-opentracing", "~> 0.0.3"],
   "sinatra" => ["sinatra-instrumentation", "~> 0.1.2"]
 }
 
