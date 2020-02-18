@@ -135,6 +135,7 @@ When interfacing with these web servers as a Rack application, please configure
 | [Mongo](#mongo)                     | >= 2.1.0           |
 | [Mysql2](#mysql2)                   | >= 0.4.0           |
 | [Net::HTTP](#nethttp)               | Ruby >= 2.0        |
+| [Pg](#pg)                           | >= 0.18.0          |
 | [Rack](#rack)                       | >= 0.1             |
 | [Rails](#rails)                     | >= 3.0.0           |
 | [Redis](#redis)                     | >= 4.0.0           |
@@ -330,6 +331,24 @@ end
 
 An optional `tracer` named argument can be provided to use a custom tracer. It will default to `OpenTracing.global_tracer` if not provided.
 
+## Pg
+
+Pg instrumentation traces all queries performed with the pg client.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-pg-instrumentation)
+
+### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i pg
+```
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:pg)
+end
+```
 ## Rack
 
 Rack spans are created using the `rack-tracer` gem. This is enabled
