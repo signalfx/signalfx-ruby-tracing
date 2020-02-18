@@ -512,3 +512,19 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Configuring the Logger
+
+The logger, based on the [Ruby Logger](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html), can be configured by setting the following environment variables:
+
+| Environmental Variable Name   | Description           |  Default             |
+|:------------------------------|:----------------------|:-------------------- |
+| `SIGNALFX_LOG_PATH`           | The path to the desired file where the instrumentation logs will be written. Besides customized paths, output options also include `STDOUT` and `STDERR`.| `/var/log/signalfx/signalfx-ruby-tracing.log` |
+| `SIGNALFX_LOG_SHIFT_AGE`      | The desired number of old log files to keep, or frequency of rotation. Options include: `daily`, `weekly` or `monthly`)  | `0`    |
+| `SIGNALFX_LOG_SHIFT_SIZE`     | The desired maximum size of log files (this only applies when. A new one would be created when the maximum is reached. | `1048576` (1 MB)  |
+| `SIGNALFX_LOG_LEVEL`          | The severity criteria for recording logs (from least to most severe). Options: `debug`, `info`, `warn`, `error`, `fatal`, `unknown`  | `warn` |
+
+More information regarding the logging configuration may be found [here](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html).
+
+**NB**: 
+- If the default path for `SIGNALFX_LOG_PATH` (that is, `/var/log/signalfx/signalfx-ruby-tracing.log`) is to be used, then please create the directory and or file (if necessary) and grant the relevant access permissions to the instrumentation user process.
+If there are permission issues, the instrumentation will default to logging to the standard error (STDERR) handle, until the path is provided to which logs can be written without any access issues.
