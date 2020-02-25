@@ -135,6 +135,7 @@ When interfacing with these web servers as a Rack application, please configure
 | [Mongo](#mongo)                     | >= 2.1.0           |
 | [Mysql2](#mysql2)                   | >= 0.4.0           |
 | [Net::HTTP](#nethttp)               | Ruby >= 2.0        |
+| [Pg](#pg)                           | >= 0.18.0          |
 | [Rack](#rack)                       | >= 0.1             |
 | [Rails](#rails)                     | >= 3.0.0           |
 | [Redis](#redis)                     | >= 4.0.0           |
@@ -330,6 +331,24 @@ end
 
 An optional `tracer` named argument can be provided to use a custom tracer. It will default to `OpenTracing.global_tracer` if not provided.
 
+## Pg
+
+Pg instrumentation traces all queries performed with the pg client.
+
+The source for this instrumentation is located [here](https://github.com/signalfx/ruby-pg-instrumentation)
+
+### Usage
+
+```bash
+$ # install the instrumentation if not done previously
+$ sfx-rb-trace-bootstrap -i pg
+```
+
+```ruby
+SignalFx::Tracing::Instrumenter.configure do |p|
+    p.instrument(:pg)
+end
+```
 ## Rack
 
 Rack spans are created using the `rack-tracer` gem. This is enabled
@@ -512,3 +531,19 @@ SignalFx::Tracing::Instrumenter.configure do |p|
 end
 ```
 
+## Configuring the Logger
+
+The logger, based on the [Ruby Logger](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html), can be configured by setting the following environment variables:
+
+| Environmental Variable Name   | Description           |  Default             |
+|:------------------------------|:----------------------|:-------------------- |
+| `SIGNALFX_LOG_PATH`           | The path to the desired file where the instrumentation logs will be written. Besides customized paths, output options also include `STDOUT` and `STDERR`.| `/var/log/signalfx/signalfx-ruby-tracing.log` |
+| `SIGNALFX_LOG_SHIFT_AGE`      | The desired number of old log files to keep, or frequency of rotation. Options include: `daily`, `weekly` or `monthly`)  | `0`    |
+| `SIGNALFX_LOG_SHIFT_SIZE`     | The desired maximum size of log files (this only applies when. A new one would be created when the maximum is reached. | `1048576` (1 MB)  |
+| `SIGNALFX_LOG_LEVEL`          | The severity criteria for recording logs (from least to most severe). Options: `debug`, `info`, `warn`, `error`, `fatal`, `unknown`  | `warn` |
+
+More information regarding the logging configuration may be found [here](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html).
+
+**NB**: 
+- If the default path for `SIGNALFX_LOG_PATH` (that is, `/var/log/signalfx/signalfx-ruby-tracing.log`) is to be used, then please create the directory and or file (if necessary) and grant the relevant access permissions to the instrumentation user process.
+If there are permission issues, the instrumentation will default to logging to the standard error (STDERR) handle, until the path is provided to which logs can be written without any access issues.

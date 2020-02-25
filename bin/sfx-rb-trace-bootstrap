@@ -11,6 +11,7 @@ instrumentations = {
   "mongodb" => ["mongodb-instrumentation", "~> 0.1.1"],
   "mysql2" => ["mysql2-instrumentation", "~> 0.2.1"],
   "nethttp" => ["nethttp-instrumentation", "~> 0.1.2"],
+  "pg" => ["pg-instrumentation", "~> 0.1.0"],
   "rack" => ["rack-tracer", { git: 'git://github.com/signalfx/ruby-rack-tracer.git', branch: 'sfx_release' }],
   "rails" => ["rails-instrumentation", "~> 0.1.3"],
   "redis" => ["redis-instrumentation", "~> 0.1.1"],
