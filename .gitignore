@@ -1,2 +1,6 @@
 *.lock
 *.gem
+.idea
+.rakeTasks
+.ruby-version
+
