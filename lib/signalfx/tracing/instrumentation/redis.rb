@@ -21,7 +21,7 @@ module SignalFx
             end
 
             tracer = opts.fetch(:tracer, OpenTracing.global_tracer)
-            ::Redis::Instrumentation.instrument(tracer: tracer)
+            ::Redis::Instrumentation.instrument(tracer: tracer, db_statement_length: 1024)
           end
         end
       end
