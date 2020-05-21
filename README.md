@@ -79,10 +79,7 @@ The steps assume you have RubyGems and Bundler.
    ```bash
    $ export SIGNALFX_ENDPOINT_URL = "yourEndpoint"
    ```
-4. Clone this repository:
-   ```bash
-   $ git clone git@github.com:signalfx/signalfx-ruby-tracing.git
-   ```
+4. Download the [latest release](https://github.com/signalfx/signalfx-ruby-tracing/releases/latest) of the tracing library.
 5. Install the tracing library:
    ```bash
    $ gem install signalfx-tracing
@@ -112,10 +109,7 @@ The steps assume you have RubyGems and Bundler.
    ```bash
    $ export SIGNALFX_ENDPOINT_URL = "yourEndpoint"
    ```
-4. Clone this repository:
-   ```bash
-   $ git clone git@github.com:signalfx/signalfx-ruby-tracing.git
-   ```
+4. Download the [latest release](https://github.com/signalfx/signalfx-ruby-tracing/releases/latest) of the tracing library.
 5. Add `signalfx-tracing` to your application's Gemfile:
    ```bash
    $ gem 'signalfx-tracing'
