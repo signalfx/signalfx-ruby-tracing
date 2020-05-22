@@ -10,9 +10,6 @@ Rack. If you use a framework that builds on top of Rack, such as Rails or
 Sinatra, the instrumentation includes Rack instrumentation. In these cases, the
 routes through the web server are automatically traced.
 
-When interfacing with these web servers as a Rack application, configure
-[Rack instrumentation](#rack) and insert it as middleware.
-
 ### Supported runtimes
 
 - MRI Ruby (CRuby) 2.0+
@@ -23,6 +20,9 @@ When interfacing with these web servers as a Rack application, configure
 - Passenger >= 5.0.25
 
 ### Supported libraries
+
+When interfacing with these web servers as a Rack application, configure
+[Rack instrumentation](#rack) and insert it as middleware.
 
 | Library                         | Instrumentation name                   | Versions Supported |
 | ------------------------------- | -------------------------------------- | ------------------ |
@@ -79,19 +79,23 @@ The steps assume you have RubyGems and Bundler.
    ```bash
    $ export SIGNALFX_ENDPOINT_URL = "yourEndpoint"
    ```
-4. Download the [latest release](https://github.com/signalfx/signalfx-ruby-tracing/releases/latest) of the tracing library.
-5. Install the tracing library:
+4. Install the tracing library:
    ```bash
    $ gem install signalfx-tracing
    ```
-6. View the list of instrumentations you can install with the bootstrap utility:
+5. View the list of instrumentations you can install with the bootstrap utility:
    ```bash
    $ sfx-rb-trace-bootstrap --list
    ```
-7. Use the bootstrap utility to install applicable instrumentations for your
-   application:
+6. Use the bootstrap utility to install applicable instrumentations for your
+   application. For example, this is how you add Rails and Redis:
    ```bash
-   $ sfx-rb-trace-bootstrap --install-deps <dep1>,<dep2>,<dep3>,<dep4>
+   $ sfx-rb-trace-bootstrap --install-deps rails-instrumentation,redis-instrumentation
+   ```
+   For information about instrumentation names, see
+   [Supported libraries](#supported-libraries). If you configure Rails
+   instrumentation, it also configures Active Record instrumentation, so you don't
+   need to instrument both.
 
 ### Manually install the library
 
@@ -120,8 +124,10 @@ The steps assume you have RubyGems and Bundler.
    $ gem 'rails-instrumentation'
    $ gem 'redis-instrumentation'
    ```
-   For more information about instrumentation names, see
-   [Supported libraries](#supported-libraries).
+   For information about instrumentation names, see
+   [Supported libraries](#supported-libraries). If you configure Rails
+   instrumentation, it also configures Active Record instrumentation, so you don't
+   need to instrument both.
 7. Install the gems for the tracing library and instrumentations:
    ```bash
    $ bundle install
@@ -156,7 +162,7 @@ Specify which libraries to instrument:
 require 'signalfx/tracing'
 
 SignalFx::Tracing::Instrumenter.configure do |p|
-    p.instrument(:LibName)
+    p.instrument(<:myLibName>)
     ...
 end
 ```
@@ -168,7 +174,7 @@ Here's information about instrumenting each supported library.
 ### Active Record
 
 This instrumentation creates spans for each Active Record query using the Active
-Support notifications framework.
+Support notifications framework. If you configure Rails instrumentation, it also configures Active Record instrumentation, so you don't need to instrument both.
 
 The source for this instrumentation is located
 [here](https://github.com/salemove/ruby-activerecord-opentracing).
