@@ -42,15 +42,6 @@ When interfacing with these web servers as a Rack application, configure
 | [Sidekiq](#sidekiq)             | sfx-sidekiq-opentracing                | >= 0.7.0           |
 | [Sinatra](#sinatra)             | sinatra-instrumentation                | >= 1.0.0           |
 
-## Configuration values
-
-| Configure parameter | Environment variable  | Default                          | Notes |
-| ------------------- | --------------------  | -------------------------------- | ----- |
-| tracer              | N/A                   | `nil`                            | The OpenTracing global tracer. |
-| ingest_url          | SIGNALFX_ENDPOINT_URL | `http://localhost:9080/v1/trace` | The endpoint the tracer sends spans to. Send spans to a Smart Agent, OpenTelemetry Collector, or a SignalFx ingest endpoint. |
-| service_name        | SIGNALFX_SERVICE_NAME | `signalfx-ruby-tracing`          | The name to identify the service in SignalFx. |
-| access_token        | SIGNALFX_ACCESS_TOKEN | `''`                             | The SignalFx organization access token. |
-
 ## Install the SignalFx Tracing Library for Ruby
 
 Follow these steps to install the tracing library. You can either use the
@@ -65,29 +56,15 @@ The steps assume you have RubyGems and Bundler.
 
 ### Install the library with the bootstrap utility
 
-1. Set the service name to identify the service in SignalFx:
-   ```bash
-   $ export SIGNALFX_SERVICE_NAME = "yourService"
-   ```
-2. If you're sending trace data to a SignalFx ingest endpoint or OpenTelemetry
-   Collector, set the access token for your organization:
-   ```bash
-   $ export SIGNALFX_ACCESS_TOKEN = "yourToken"
-   ```
-3. If you're sending trace data to an endpoint that's not `http://localhost:9080/v1/trace`, 
-   set the endpoint:
-   ```bash
-   $ export SIGNALFX_ENDPOINT_URL = "yourEndpoint"
-   ```
-4. Install the tracing library:
+1. Install the tracing library:
    ```bash
    $ gem install signalfx-tracing
    ```
-5. View the list of instrumentations you can install with the bootstrap utility:
+2. View the list of instrumentations you can install with the bootstrap utility:
    ```bash
    $ sfx-rb-trace-bootstrap --list
    ```
-6. Use the bootstrap utility to install applicable instrumentations for your
+3. Use the bootstrap utility to install applicable instrumentations for your
    application. For example, this is how you add Rails and Redis:
    ```bash
    $ sfx-rb-trace-bootstrap --install-deps rails-instrumentation,redis-instrumentation
@@ -99,26 +76,12 @@ The steps assume you have RubyGems and Bundler.
 
 ### Manually install the library
 
-1. Set the service name to identify the service in SignalFx:
-   ```bash
-   $ export SIGNALFX_SERVICE_NAME = "yourService"
-   ```
-2. If you're sending trace data to a SignalFx ingest endpoint or OpenTelemetry
-   Collector, set the access token for your organization:
-   ```bash
-   $ export SIGNALFX_ACCESS_TOKEN = "yourToken"
-   ```
-3. If you're sending trace data to an endpoint that's not `http://localhost:9080/v1/trace`,
-   set the endpoint:
-   ```bash
-   $ export SIGNALFX_ENDPOINT_URL = "yourEndpoint"
-   ```
-4. Download the [latest release](https://github.com/signalfx/signalfx-ruby-tracing/releases/latest) of the tracing library.
-5. Add `signalfx-tracing` to your application's Gemfile:
+1. Download the [latest release](https://github.com/signalfx/signalfx-ruby-tracing/releases/latest) of the tracing library.
+2. Add `signalfx-tracing` to your application's Gemfile:
    ```bash
    $ gem 'signalfx-tracing'
    ```
-6. Add each applicable instrumentation to your application's Gemfile. For
+3. Add each applicable instrumentation to your application's Gemfile. For
    example, this is how you add Rails and Redis:
    ```bash
    $ gem 'rails-instrumentation'
@@ -128,7 +91,7 @@ The steps assume you have RubyGems and Bundler.
    [Supported libraries](#supported-libraries). If you configure Rails
    instrumentation, it also configures Active Record instrumentation, so you don't
    need to instrument both.
-7. Install the gems for the tracing library and instrumentations:
+4. Install the gems for the tracing library and instrumentations:
    ```bash
    $ bundle install
    ```
@@ -142,6 +105,17 @@ For example, with Rails, configure instrumentation in `config/initializer/tracin
 
 You can configure instrumentation automatically or manually. Manual
 instrumentation is convenient when you want to trace only some libraries.
+
+### Set configuration values
+
+If the default configuration values don't apply for your environment, override them before running the process you instrument.
+
+| Configure parameter | Environment variable  | Default                          | Notes |
+| ------------------- | --------------------  | -------------------------------- | ----- |
+| tracer              | N/A                   | `nil`                            | The OpenTracing global tracer. |
+| ingest_url          | SIGNALFX_ENDPOINT_URL | `http://localhost:9080/v1/trace` | The endpoint the tracer sends spans to. Send spans to a Smart Agent, OpenTelemetry Collector, or a SignalFx ingest endpoint. |
+| service_name        | SIGNALFX_SERVICE_NAME | `signalfx-ruby-tracing`          | The name to identify the service in SignalFx. |
+| access_token        | SIGNALFX_ACCESS_TOKEN | `''`                             | The SignalFx organization access token. |
 
 ### Automatically instrument code:
 
