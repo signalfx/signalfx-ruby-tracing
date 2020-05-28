@@ -110,7 +110,7 @@ instrumentation is convenient when you want to trace only some libraries.
 
 If the default configuration values don't apply for your environment, override them before running the process you instrument.
 
-| Configure parameter | Environment variable  | Default                          | Notes |
+| `configure` parameter | Environment variable  | Default                          | Notes |
 | ------------------- | --------------------  | -------------------------------- | ----- |
 | tracer              | N/A                   | `nil`                            | The OpenTracing global tracer. |
 | ingest_url          | SIGNALFX_ENDPOINT_URL | `http://localhost:9080/v1/trace` | The endpoint the tracer sends spans to. Send spans to a Smart Agent, OpenTelemetry Collector, or a SignalFx ingest endpoint. |
