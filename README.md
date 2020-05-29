@@ -5,10 +5,7 @@ with the OpenTracing API to capture and report distributed traces to SignalFx.
 
 ## Requirements and supported software
 
-Instrumentation for routes using the following web servers is provided through
-Rack. If you use a framework that builds on top of Rack, such as Rails or
-Sinatra, the instrumentation includes Rack instrumentation. In these cases, the
-routes through the web server are automatically traced.
+Here are the requirements and supported software for the library.
 
 ### Supported runtimes
 
@@ -39,8 +36,11 @@ routes through the web server are automatically traced.
 | [Sidekiq](#sidekiq)             | sfx-sidekiq-opentracing                | >= 0.7.0           |
 | [Sinatra](#sinatra)             | sinatra-instrumentation                | >= 1.0.0           |
 
-When interfacing with these web servers as a Rack application, configure
-[Rack instrumentation](#rack) and insert the `rack-tracer` library as middleware.
+Instrumentation for routes using the following web servers is provided through
+Rack. If you use a framework that builds on top of Rack, such as Rails or
+Sinatra, install the `rack-tracer` instrumentation with your dependency manager
+or with the bootstrap utility. In these cases, the routes through the web
+server are automatically traced.
 
 ## Install the SignalFx Tracing Library for Ruby
 
