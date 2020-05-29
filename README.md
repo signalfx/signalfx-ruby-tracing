@@ -21,9 +21,6 @@ routes through the web server are automatically traced.
 
 ### Supported libraries
 
-When interfacing with these web servers as a Rack application, configure
-[Rack instrumentation](#rack) and insert it as middleware.
-
 | Library                         | Instrumentation name                   | Versions Supported |
 | ------------------------------- | -------------------------------------- | ------------------ |
 | [ActiveRecord](#active-record)  | activerecord-opentracing               | ~> 5.0             |
@@ -41,6 +38,9 @@ When interfacing with these web servers as a Rack application, configure
 | [Sequel](#sequel)               | sequel-instrumentation                 | >= 3.47.0          |
 | [Sidekiq](#sidekiq)             | sfx-sidekiq-opentracing                | >= 0.7.0           |
 | [Sinatra](#sinatra)             | sinatra-instrumentation                | >= 1.0.0           |
+
+When interfacing with these web servers as a Rack application, configure
+[Rack instrumentation](#rack) and insert the `rack-tracer` library as middleware.
 
 ## Install the SignalFx Tracing Library for Ruby
 
@@ -99,7 +99,7 @@ The steps assume you have RubyGems and Bundler.
 ## Configure instrumentation for a Ruby application
 
 Configure the instrumentation anywhere in the setup portion of your code or
-before doing anything that needs to be traced.
+before importing and using any libraries that need to be traced.
 
 For example, with Rails, configure instrumentation in `config/initializer/tracing.rb`.
 
