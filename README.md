@@ -73,7 +73,7 @@ The steps assume you have RubyGems and Bundler.
 3. Use the bootstrap utility to install applicable instrumentations for your
    application. For example, this is how you add Rails and Redis:
    ```bash
-   $ sfx-rb-trace-bootstrap --install-deps rails-instrumentation,redis-instrumentation
+   $ sfx-rb-trace-bootstrap --install-deps rails,redis
    ```
    For information about instrumentation names, see supported libraries and their
    current versions in `gem.deps.rb`. If you configure Rails instrumentation, it
