@@ -3,6 +3,10 @@
 The SignalFx Tracing Library for Ruby helps you instrument Ruby applications
 with the OpenTracing API to capture and report distributed traces to SignalFx.
 
+The library consists of an auto-instrumentor that works with OpenTracing
+community-provided instrumentations, and provides a bootstrap utility to help
+install instrumentations. It creates a Jaeger tracer to send trace data to SignalFx.
+
 ## Requirements and supported software
 
 Here are the requirements and supported software for the library.
