@@ -5,7 +5,9 @@ with the OpenTracing API to capture and report distributed traces to SignalFx.
 
 The library consists of an auto-instrumentor that works with OpenTracing
 community-provided instrumentations, and provides a bootstrap utility to help
-install instrumentations. It creates a Jaeger tracer to send trace data to SignalFx.
+install instrumentations. It also configures and uses a
+[Jaeger tracer](https://github.com/salemove/jaeger-client-ruby) to send trace
+data to SignalFx.
 
 ## Requirements and supported software
 
@@ -40,7 +42,7 @@ Here are the requirements and supported software for the library.
 | [Sidekiq](#sidekiq)             | sfx-sidekiq-opentracing                | >= 0.7.0           |
 | [Sinatra](#sinatra)             | sinatra-instrumentation                | >= 1.0.0           |
 
-Instrumentation for routes using the following web servers is provided through
+Instrumentation for routes using Puma or Passenger is provided through
 Rack. If you use a framework that builds on top of Rack, such as Rails or
 Sinatra, install the `rack-tracer` instrumentation with your dependency manager
 or with the bootstrap utility. In these cases, the routes through the web
@@ -73,10 +75,9 @@ The steps assume you have RubyGems and Bundler.
    ```bash
    $ sfx-rb-trace-bootstrap --install-deps rails-instrumentation,redis-instrumentation
    ```
-   For information about instrumentation names, see
-   [Supported libraries](#supported-libraries). If you configure Rails
-   instrumentation, it also configures Active Record instrumentation, so you don't
-   need to instrument both.
+   For information about instrumentation names, see supported libraries and their
+   current versions in `gem.deps.rb`. If you configure Rails instrumentation, it
+   also configures Active Record instrumentation, so you don't need to instrument both.
 
 ### Manually install the library
 
@@ -91,10 +92,9 @@ The steps assume you have RubyGems and Bundler.
    $ gem 'rails-instrumentation'
    $ gem 'redis-instrumentation'
    ```
-   For information about instrumentation names, see
-   [Supported libraries](#supported-libraries). If you configure Rails
-   instrumentation, it also configures Active Record instrumentation, so you don't
-   need to instrument both.
+   For information about instrumentation names, see supported libraries and their
+   current versions in `gem.deps.rb`. If you configure Rails instrumentation, it
+   also configures Active Record instrumentation, so you don't need to instrument both.
 4. Install the gems for the tracing library and instrumentations:
    ```bash
    $ bundle install
@@ -132,7 +132,7 @@ require 'signalfx/tracing'
 SignalFx::Tracing::Instrumenter.configure(auto_instrument:true)
 ```
 
-### Manually instrument code:
+### Manually specify which libraries to instrument
 
 Specify which libraries to instrument:
 
