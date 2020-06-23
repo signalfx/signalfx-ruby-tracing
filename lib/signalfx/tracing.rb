@@ -2,6 +2,7 @@ require 'jaeger/client'
 require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
 require 'signalfx/tracing/compat'
+require 'signalfx/tracing/sfx_logger'
 require 'thread'
 
 module SignalFx
@@ -25,7 +26,12 @@ module SignalFx
 
           if auto_instrument
             Register.available_libs.each_pair do |key, value|
-              value.instrument
+              begin
+                value.instrument
+              rescue Exception => e
+                logger.error { "failed to initialize instrumentation '#{key}': #{e.inspect}" }
+                logger.error { e.backtrace }
+              end
             end
           else
             yield self
@@ -36,9 +42,14 @@ module SignalFx
 
         def instrument(to_patch, **args)
           if Register.available_libs[to_patch].nil?
-            puts "instrumentation not found"
+            logger.error { "instrumentation not found: #{to_patch}" }
           else
-            Register.available_libs[to_patch].instrument(**args)
+            begin
+              Register.available_libs[to_patch].instrument(**args)
+            rescue Exception => e
+              logger.error { "failed to initialize instrumentation '#{to_patch}': #{e.inspect}" }
+              logger.error { e.backtrace }
+            end
           end
         end
 
@@ -77,6 +88,13 @@ module SignalFx
 
         def revive
           set_tracer(service_name: @service_name, access_token: @access_token)
+        end
+
+        def logger()
+          if @_logger == nil
+            @_logger = Logging.logger
+          end
+          return @_logger
         end
       end
     end
