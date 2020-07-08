@@ -3,6 +3,7 @@ require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
 require 'signalfx/tracing/compat'
 require 'signalfx/tracing/sfx_logger'
+require 'signalfx/tracing/tags'
 require 'thread'
 
 module SignalFx
