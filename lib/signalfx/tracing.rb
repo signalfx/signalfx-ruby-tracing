@@ -19,11 +19,12 @@ module SignalFx
                       ingest_url: ENV['SIGNALFX_ENDPOINT_URL'] || ENV['SIGNALFX_INGEST_URL'] || 'http://localhost:9080/v1/trace',
                       service_name: ENV['SIGNALFX_SERVICE_NAME'] || "signalfx-ruby-tracing",
                       access_token: ENV['SIGNALFX_ACCESS_TOKEN'],
-                      auto_instrument: false)
+                      auto_instrument: false,
+                      default_tags: nil)
           @ingest_url = ingest_url
           @service_name = service_name
           @access_token = access_token
-          set_tracer(tracer: tracer, service_name: service_name, access_token: access_token) if @tracer.nil?
+          set_tracer(tracer: tracer, service_name: service_name, access_token: access_token, default_tags: default_tags) if @tracer.nil?
 
           if auto_instrument
             Register.available_libs.each_pair do |key, value|
@@ -54,7 +55,7 @@ module SignalFx
           end
         end
 
-        def set_tracer(tracer: nil, service_name: nil, access_token: nil)
+        def set_tracer(tracer: nil, service_name: nil, access_token: nil, default_tags: nil)
           # build a new tracer if one wasn't provided
           if tracer.nil?
             headers = {}
@@ -79,7 +80,8 @@ module SignalFx
               service_name: service_name,
               reporter: @reporter,
               injectors: injectors,
-              extractors: extractors
+              extractors: extractors,
+              tags: default_tags
             )
             OpenTracing.global_tracer = @tracer
           else
