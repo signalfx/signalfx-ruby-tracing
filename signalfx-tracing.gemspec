@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
 
   # stdlib instrumentations
   spec.add_dependency "nethttp-instrumentation", "~> 0.1.2"
+  spec.add_dependency "signalfx-faraday-instrumentation" "~> 0.1.1"
 end

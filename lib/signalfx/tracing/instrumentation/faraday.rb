@@ -31,9 +31,9 @@ module SignalFx
             ::Faraday::Connection.module_eval do
               alias_method :initialize_original, :initialize
 
-              def initialize(url = nil, options = nil)
+              def initialize(url = nil, options = nil, &block)
                 # initialize the connection as usual
-                initialize_original(url, options)
+                initialize_original(url, options, &block)
 
                 # before we let go, add the Faraday tracer to the beginning of the stack
                 @builder.insert(0, ::Faraday::Tracer)
