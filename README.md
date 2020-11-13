@@ -29,7 +29,7 @@ Here are the requirements and supported software for the library.
 | [ActiveRecord](#active-record)  | activerecord-opentracing               | ~> 5.0             |
 | [Elasticsearch](#elasticsearch) | signalfx-elasticsearch-instrumentation | >= 6.0.2           |
 | [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.9.0           |
-| [Grape](#grape)                 | grape-instrumentation                  | >= 0.13.0          |
+| [Grape](#grape)                 | grape-instrumentation                  | >= 0.2.0           |
 | [Mongo](#mongo)                 | mongodb-instrumentation                | >= 2.1.0           |
 | [Mysql2](#mysql2)               | mysql2-instrumentation                 | >= 0.4.0           |
 | [Net::HTTP](#nethttp)           | nethttp-instrumentation                | Ruby >= 2.0        |
@@ -374,7 +374,7 @@ automatically for other frameworks that are built on top of Rack, but it can
 also be separately enabled.
 
 The source for this instrumentation is located
-[here](https://github.com/opentracing-contrib/ruby-rack-tracer).
+[here](https://github.com/signalfx/ruby-rack-tracer).
 
 #### Usage
 
