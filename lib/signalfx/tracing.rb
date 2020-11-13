@@ -2,8 +2,11 @@ require 'jaeger/client'
 require 'signalfx/tracing/http_sender'
 require 'signalfx/tracing/register'
 require 'signalfx/tracing/compat'
+require 'signalfx/tracing/client'
 require 'signalfx/tracing/sfx_logger'
 require 'signalfx/tracing/tags'
+require 'signalfx/tracing/tracer'
+require 'signalfx/tracing/span'
 require 'thread'
 
 module SignalFx
@@ -75,7 +78,7 @@ module SignalFx
               OpenTracing::FORMAT_TEXT_MAP => [Jaeger::Client::Extractors::B3TextMapCodec]
             }
 
-            @tracer = Jaeger::Client.build(
+            @tracer = SignalFx::Tracing::Client.build(
               service_name: service_name,
               reporter: @reporter,
               injectors: injectors,
