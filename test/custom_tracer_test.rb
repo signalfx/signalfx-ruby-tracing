@@ -19,14 +19,14 @@ module SignalFx
         begin
           raise "test error 1"
         rescue StandardError => err
-          tracer.set_error(err)
+          tracer.record_exception(err)
         end
 
         assert_equal span.logs.length, 0 
         assert_equal span.tags.length, 2 
       end
           
-      def test_active_span
+      def test_record_exception
         Instrumenter.instance_variable_set(:@ingest_url, "")
         tracer = Instrumenter.new_tracer(service_name: "test-service")
         span = tracer.start_active_span("test span").span
@@ -36,7 +36,7 @@ module SignalFx
         begin
           raise RuntimeError, "test error 2"
         rescue RuntimeError => err
-          tracer.set_error(err)
+          tracer.record_exception(err)
         end
 
         assert_equal span.logs.length, 1 
@@ -59,8 +59,26 @@ module SignalFx
         assert_equal kv_object.vStr, "test error 2"
         assert_equal kv_message.key, "message"
         assert_equal kv_message.vStr, "test error 2"
+
         assert kv_stack.vStr.length > 50
         assert kv_stack.vStr.include? 'custom_tracer_test.rb'
+      end
+
+      def test_record_exception_without_error_tag
+        Instrumenter.instance_variable_set(:@ingest_url, "")
+        tracer = Instrumenter.new_tracer(service_name: "test-service")
+        span = tracer.start_active_span("test span").span
+        assert_equal span.logs.length, 0 
+        assert_equal span.tags.length, 2 
+
+        begin
+          raise RuntimeError, "test error 2"
+        rescue RuntimeError => err
+          tracer.record_exception(err, false)
+        end
+
+        assert_equal span.logs.length, 1 
+        assert_equal span.tags.length, 2 
       end
     end
   end

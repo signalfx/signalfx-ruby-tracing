@@ -13,9 +13,9 @@ module SignalFx
         @reporter = reporter
       end
 
-      def set_error(error)
+      def record_exception(exception, record_error=true)
         span = active_span
-        span.set_error(error) if span 
+        span.record_exception(exception, record_error) if span 
       end
     end
   end
