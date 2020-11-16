@@ -3,14 +3,14 @@ require 'jaeger/span'
 module SignalFx
   module Tracing
     module Span
-      def set_error(error) 
-        set_tag('error', true)
+      def record_exception(exception, record_error=true) 
+        set_tag('error', true) if record_error
         log_kv(
           event: 'error',
-          :'error.kind' => error.class.to_s,
-          :'error.object' => error,
-          message: error.message,
-          stack: error.backtrace.join("\n")
+          :'error.kind' => exception.class.to_s,
+          :'error.object' => exception,
+          message: exception.message,
+          stack: exception.backtrace.join("\n")
         )
       end
     end
