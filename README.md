@@ -120,7 +120,9 @@ If the default configuration values don't apply for your environment, override t
 | ingest_url          | SIGNALFX_ENDPOINT_URL              | `http://localhost:9080/v1/trace` | The endpoint the tracer sends spans to. Send spans to a Smart Agent, OpenTelemetry Collector, or a SignalFx ingest endpoint. |
 | service_name        | SIGNALFX_SERVICE_NAME              | `signalfx-ruby-tracing`          | The name to identify the service in SignalFx. |
 | access_token        | SIGNALFX_ACCESS_TOKEN              | `''`                             | The SignalFx organization access token. |
+| span_tags           | SIGNALFX_SPAN_TAGS                 | `nil`                            | Comma-separated list of tags included in every reported span. For example, "key1:val1,key2:val2". Use only string values for tags.|
 | N/A                 | SIGNALFX_RECORDED_VALUE_MAX_LENGTH | `1200`                           | Maximum length an attribute value can have. Values longer than this are truncated. |
+
 
 ### Automatically instrument code:
 

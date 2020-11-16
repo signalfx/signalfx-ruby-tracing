@@ -7,8 +7,11 @@ module SignalFx
     class TraceTest < Test::Unit::TestCase
       require 'test/unit'
 
+      Instrumenter = SignalFx::Tracing::Instrumenter
+
       def test_no_active_span
-        tracer = SignalFx::Tracing::Client.build(service_name: "test-service")
+        Instrumenter.instance_variable_set(:@ingest_url, "")
+        tracer = Instrumenter.new_tracer(service_name: "test-service") 
         span = tracer.start_span("test span")
         assert_equal span.logs.length, 0 
         assert_equal span.tags.length, 2 
@@ -24,7 +27,8 @@ module SignalFx
       end
           
       def test_active_span
-        tracer = SignalFx::Tracing::Client.build(service_name: "test-service")
+        Instrumenter.instance_variable_set(:@ingest_url, "")
+        tracer = Instrumenter.new_tracer(service_name: "test-service")
         span = tracer.start_active_span("test span").span
         assert_equal span.logs.length, 0 
         assert_equal span.tags.length, 2 
@@ -55,7 +59,8 @@ module SignalFx
         assert_equal kv_object.vStr, "test error 2"
         assert_equal kv_message.key, "message"
         assert_equal kv_message.vStr, "test error 2"
-        assert kv_stack.vStr.include? 'test_custom_tracer.rb:33:in `test_active_span'
+        assert kv_stack.vStr.length > 50
+        assert kv_stack.vStr.include? 'custom_tracer_test.rb'
       end
     end
   end

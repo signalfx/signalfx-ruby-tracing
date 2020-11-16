@@ -16,7 +16,7 @@ module SignalFx
       assert_equal SignalFx::Tracing::TagBuilder::ClassMethods.max_attr_length, 1200
     end
 
-    def test_span
+    def test_max_length
       tag = Jaeger::ThriftTagBuilder.build("k", "hello")
       assert_equal tag.vStr, "hello"
 
