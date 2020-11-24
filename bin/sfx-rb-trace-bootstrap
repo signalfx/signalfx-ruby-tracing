@@ -4,21 +4,21 @@ require 'ostruct'
 require 'pp'
 
 instrumentations = {
-  "activerecord" => ["activerecord-opentracing", "~> 0.2.1"],
-  "elasticsearch" => ["signalfx-elasticsearch-instrumentation", "~> 0.1.0"],
-  "faraday" => ["signalfx-faraday-instrumentation", "~> 0.1.1"],
-  "grape" => ["grape-instrumentation", "~> 0.2.0"],
-  "mongodb" => ["mongodb-instrumentation", "~> 0.1.1"],
-  "mysql2" => ["mysql2-instrumentation", "~> 0.2.1"],
-  "nethttp" => ["nethttp-instrumentation", "~> 0.1.2"],
-  "pg" => ["pg-instrumentation", "~> 0.1.0"],
-  "rack" => ["sfx-rack-tracer", "~> 0.10.0"],
-  "rails" => ["rails-instrumentation", "~> 0.1.5"],
-  "redis" => ["redis-instrumentation", "~> 0.2.0"],
-  "restclient" => ["restclient-instrumentation", "~> 0.1.1"],
-  "sequel" => ["sequel-instrumentation", "~> 0.1.0"],
-  "sidekiq" => ["sfx-sidekiq-opentracing", "~> 0.0.3"],
-  "sinatra" => ["sinatra-instrumentation", "~> 0.1.2"]
+  "activerecord" => ["signalfx-activerecord-opentracing", "~> 0.1.0"],
+  "elasticsearch" => ["signalfx-elasticsearch-instrumentation", "~> 0.2.0"],
+  "faraday" => ["signalfx-faraday-instrumentation", "~> 0.2.0"],
+  "grape" => ["signalfx-grape-instrumentation", "~> 0.1.0"],
+  "mongodb" => ["signalfx-mongodb-instrumentation", "~> 0.1.1"],
+  "mysql2" => ["signalfx-mysql2-instrumentation", "~> 0.1.1"],
+  "nethttp" => ["signalfx-nethttp-instrumentation", "~> 0.1.0"],
+  "pg" => ["signalfx-pg-instrumentation", "~> 0.1.0"],
+  "rack" => ["signalfx-rack-tracer", "~> 0.1.0"],
+  "rails" => ["signalfx-rails-instrumentation", "~> 0.2.0"],
+  "redis" => ["signalfx-redis-instrumentation", "~> 0.1.0"],
+  "restclient" => ["signalfx-restclient-instrumentation", "~> 0.1.0"],
+  "sequel" => ["signalfx-sequel-instrumentation", "~> 0.1.0"],
+  "sidekiq" => ["signalfx-sidekiq-opentracing", "~> 0.1.0"],
+  "sinatra" => ["signalfx-sinatra-instrumentation", "~> 0.1.0"]
 }
 
 options = OpenStruct.new
