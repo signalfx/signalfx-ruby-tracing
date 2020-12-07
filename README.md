@@ -158,7 +158,7 @@ This instrumentation creates spans for each Active Record query using the Active
 Support notifications framework. If you configure Rails instrumentation, it also configures Active Record instrumentation, so you don't need to instrument both.
 
 The source for this instrumentation is located
-[here](https://github.com/salemove/ruby-activerecord-opentracing).
+[here](https://github.com/signalfx/ruby-activerecord-opentracing).
 
 #### Usage
 
@@ -218,7 +218,7 @@ requests. If the remote service has instrumentation that is aware of Rack,
 those spans will be automatically nested with Faraday's spans.
 
 The source for this instrumentation is located
-[here](https://github.com/opentracing-contrib/ruby-faraday-tracer).
+[here](https://github.com/signalfx/ruby-faraday-tracer).
 
 #### Usage
 
