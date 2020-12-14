@@ -3,7 +3,7 @@ group :instrumentations do
   gem 'signalfx-grape-instrumentation', "~> 0.1.0"
   gem 'signalfx-mongodb-instrumentation', '~> 0.1.1'
   gem 'signalfx-mysql2-instrumentation', '~> 0.1.1'
-  gem 'signalfx-nethttp-instrumentation', '~> 0.1.0'
+  gem 'signalfx-nethttp-instrumentation', '~> 0.2.0'
   gem 'signalfx-pg-instrumentation',  '~> 0.1.0'
   gem 'signalfx-rack-tracer', '~> 0.1.0'
   gem 'signalfx-rails-instrumentation', '~> 0.2.0'
