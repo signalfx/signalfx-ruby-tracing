@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   # `gem install -g`
 
   # stdlib instrumentations
-  spec.add_dependency "nethttp-instrumentation", "~> 0.1.2"
+  spec.add_dependency "signalfx-nethttp-instrumentation", "~> 0.2.0"
 
   # uncomment and run `bundle install` in order to run the whole test suite
   spec.add_development_dependency "faraday", "~> 1.0"

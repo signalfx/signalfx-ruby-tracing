@@ -26,25 +26,25 @@ Here are the requirements and supported software for the library.
 
 | Library                         | Instrumentation name                   | Versions Supported |
 | ------------------------------- | -------------------------------------- | ------------------ |
-| [ActiveRecord](#active-record)  | activerecord-opentracing               | ~> 5.0             |
+| [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | ~> 5.0             |
 | [Elasticsearch](#elasticsearch) | signalfx-elasticsearch-instrumentation | >= 6.0.2           |
 | [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.9.0           |
-| [Grape](#grape)                 | grape-instrumentation                  | >= 0.2.0           |
-| [Mongo](#mongo)                 | mongodb-instrumentation                | >= 2.1.0           |
-| [Mysql2](#mysql2)               | mysql2-instrumentation                 | >= 0.4.0           |
-| [Net::HTTP](#nethttp)           | nethttp-instrumentation                | Ruby >= 2.0        |
-| [Pg](#pg)                       | pg-instrumentation                     | >= 0.18.0          |
-| [Rack](#rack)                   | sfx-rack-tracer                        | >= 0.10.0          |
-| [Rails](#rails)                 | rails-instrumentation                  | >= 3.0.0           |
-| [Redis](#redis)                 | redis-instrumentation                  | >= 4.0.0           |
-| [RestClient](#restclient)       | restclient-instrumentation             | >= 1.5.0           |
-| [Sequel](#sequel)               | sequel-instrumentation                 | >= 3.47.0          |
-| [Sidekiq](#sidekiq)             | sfx-sidekiq-opentracing                | >= 0.7.0           |
-| [Sinatra](#sinatra)             | sinatra-instrumentation                | >= 1.0.0           |
+| [Grape](#grape)                 | signalfx-grape-instrumentation         | >= 0.2.0           |
+| [Mongo](#mongo)                 | signalfgx-mongodb-instrumentation      | >= 2.1.0           |
+| [Mysql2](#mysql2)               | signalfx-mysql2-instrumentation        | >= 0.4.0           |
+| [Net::HTTP](#nethttp)           | signalfx-nethttp-instrumentation       | Ruby >= 2.0        |
+| [Pg](#pg)                       | signalfx-pg-instrumentation            | >= 0.18.0          |
+| [Rack](#rack)                   | signalfx-rack-tracer                   | >= 0.10.0          |
+| [Rails](#rails)                 | signalfx-rails-instrumentation         | >= 3.0.0           |
+| [Redis](#redis)                 | signalfx-redis-instrumentation         | >= 4.0.0           |
+| [RestClient](#restclient)       | signalfx-restclient-instrumentation    | >= 1.5.0           |
+| [Sequel](#sequel)               | signalfx-sequel-instrumentation        | >= 3.47.0          |
+| [Sidekiq](#sidekiq)             | signalfx-sidekiq-opentracing           | >= 0.7.0           |
+| [Sinatra](#sinatra)             | signalfx-sinatra-instrumentation       | >= 1.0.0           |
 
 Instrumentation for routes using Puma or Passenger is provided through
 Rack. If you use a framework that builds on top of Rack, such as Rails or
-Sinatra, install the `sfx-rack-tracer` instrumentation with your dependency manager
+Sinatra, install the `signalfx-rack-tracer` instrumentation with your dependency manager
 or with the bootstrap utility. In these cases, the routes through the web
 server are automatically traced.
 
@@ -89,8 +89,8 @@ The steps assume you have RubyGems and Bundler.
 3. Add each applicable instrumentation to your application's Gemfile. For
    example, this is how you add Rails and Redis:
    ```bash
-   $ gem 'rails-instrumentation'
-   $ gem 'redis-instrumentation'
+   $ gem 'signalfx-rails-instrumentation'
+   $ gem 'signalfx-redis-instrumentation'
    ```
    For information about instrumentation names, see supported libraries and their
    current versions in `gem.deps.rb`. If you configure Rails instrumentation, it
@@ -371,7 +371,7 @@ end
 ```
 ### Rack
 
-Rack spans are created using the `sfx-rack-tracer` gem. This is enabled
+Rack spans are created using the `signalfx-rack-tracer` gem. This is enabled
 automatically for other frameworks that are built on top of Rack, but it can
 also be separately enabled.
 
@@ -396,7 +396,7 @@ use Rack::Tracer
 ### Rails
 
 Rails applications can be traced using the notifications provided by ActiveSupport.
-It will use `sfx-rack-tracer` to trace by requests.
+It will use `signalfx-rack-tracer` to trace by requests.
 
 The forked source for this instrumentation is located
 [here](https://github.com/signalfx/ruby-rails-instrumentation).
@@ -543,7 +543,7 @@ Arguments:
 ### Sinatra
 
 Sinatra instrumentation traces requests and template rendering. The instrumenter
-registers a Sinatra extension that uses `sfx-rack-tracer` to trace requests and
+registers a Sinatra extension that uses `signalfx-rack-tracer` to trace requests and
 monkey-patches to trace view rendering. Rack instrumentation is automatically
 enabled when using Sinatra instrumentation.
 
