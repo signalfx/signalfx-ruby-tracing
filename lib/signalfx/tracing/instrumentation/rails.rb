@@ -20,15 +20,19 @@ module SignalFx
 
             begin
               require 'rails/instrumentation'
-              require 'rack/tracer'
             rescue LoadError => e
               puts e.message
               return
             end
 
             if opts.fetch(:rack_tracer, true)
-              # add rack middlewares
-              ::Rails.configuration.middleware.insert(0, ::Rack::Tracer)
+              begin
+                # add rack middlewares
+                require 'rack/tracer'
+                ::Rails.configuration.middleware.insert(0, ::Rack::Tracer)
+              rescue LoadError => e
+                puts e.message
+              end
             end
 
             exclude_events = opts.fetch(:exclude_events, [])
