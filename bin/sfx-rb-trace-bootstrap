@@ -6,7 +6,7 @@ require 'pp'
 instrumentations = {
   "activerecord" => ["signalfx-activerecord-opentracing", "~> 0.1.0"],
   "elasticsearch" => ["signalfx-elasticsearch-instrumentation", "~> 0.2.0"],
-  "faraday" => ["signalfx-faraday-instrumentation", "~> 0.2.0"],
+  "faraday" => ["signalfx-faraday-instrumentation", "~> 0.2.1"],
   "grape" => ["signalfx-grape-instrumentation", "~> 0.1.0"],
   "mongodb" => ["signalfx-mongodb-instrumentation", "~> 0.1.1"],
   "mysql2" => ["signalfx-mysql2-instrumentation", "~> 0.1.1"],

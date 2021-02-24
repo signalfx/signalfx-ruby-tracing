@@ -28,7 +28,7 @@ Here are the requirements and supported software for the library.
 | ------------------------------- | -------------------------------------- | ------------------ |
 | [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | ~> 5.0             |
 | [Elasticsearch](#elasticsearch) | signalfx-elasticsearch-instrumentation | >= 6.0.2           |
-| [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.9.0           |
+| [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.2.1           |
 | [Grape](#grape)                 | signalfx-grape-instrumentation         | >= 0.2.0           |
 | [Mongo](#mongo)                 | signalfgx-mongodb-instrumentation      | >= 2.1.0           |
 | [Mysql2](#mysql2)               | signalfx-mysql2-instrumentation        | >= 0.4.0           |

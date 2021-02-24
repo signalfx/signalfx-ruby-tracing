@@ -38,5 +38,5 @@ Gem::Specification.new do |spec|
 
   # uncomment and run `bundle install` in order to run the whole test suite
   spec.add_development_dependency "faraday", "~> 1.0"
-  spec.add_development_dependency "signalfx-faraday-instrumentation"
+  spec.add_development_dependency "signalfx-faraday-instrumentation", "~> 0.2.1"
 end

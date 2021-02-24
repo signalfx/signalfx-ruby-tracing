@@ -12,6 +12,6 @@ group :instrumentations do
   gem 'signalfx-sequel-instrumentation', '~> 0.1.0'
   gem 'signalfx-sidekiq-opentracing', '~> 0.1.0'
   gem 'signalfx-elasticsearch-instrumentation', '~> 0.2.0'
-  gem 'signalfx-faraday-instrumentation', '~> 0.2.0'
+  gem 'signalfx-faraday-instrumentation', '~> 0.2.1'
   gem 'signalfx-sinatra-instrumentation', '~> 0.1.0'
 end
