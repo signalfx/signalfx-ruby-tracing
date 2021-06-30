@@ -26,7 +26,7 @@ Here are the requirements and supported software for the library.
 
 | Library                         | Instrumentation name                   | Versions Supported |
 | ------------------------------- | -------------------------------------- | ------------------ |
-| [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | ~> 5.0             |
+| [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | ~> 6.0             |
 | [Elasticsearch](#elasticsearch) | signalfx-elasticsearch-instrumentation | >= 6.0.2           |
 | [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.2.1           |
 | [Grape](#grape)                 | signalfx-grape-instrumentation         | >= 0.2.0           |
