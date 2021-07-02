@@ -26,7 +26,7 @@ Here are the requirements and supported software for the library.
 
 | Library                         | Instrumentation name                   | Versions Supported |
 | ------------------------------- | -------------------------------------- | ------------------ |
-| [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | ~> 5.0             |
+| [ActiveRecord](#active-record)  | signalfx-activerecord-opentracing      | >= 5.2, < 7.0      |
 | [Elasticsearch](#elasticsearch) | signalfx-elasticsearch-instrumentation | >= 6.0.2           |
 | [Faraday](#faraday)             | signalfx-faraday-instrumentation       | >= 0.2.1           |
 | [Grape](#grape)                 | signalfx-grape-instrumentation         | >= 0.2.0           |
@@ -52,7 +52,7 @@ server are automatically traced.
 
 Follow these steps to install the tracing library. You can either use the
 bootstrap utility to install the tracing library and its dependencies or
-manually install everything. 
+manually install everything.
 
 The bootstrap utility updates your Gemfile and installs the required
 dependencies for you. For information about the bootstrap utility, see the
@@ -578,7 +578,7 @@ can be configured by setting the following environment variables:
 More information regarding the logging configuration may be found
 [here](https://ruby-doc.org/stdlib-2.4.0/libdoc/logger/rdoc/Logger.html).
 
-**NB**: 
+**NB**:
 - If the default path for `SIGNALFX_LOG_PATH` (that is, `/var/log/signalfx/signalfx-ruby-tracing.log`)
   is to be used, then please create the directory and or file (if necessary)
   and grant the relevant access permissions to the instrumentation user process.
