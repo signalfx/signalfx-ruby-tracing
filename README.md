@@ -89,8 +89,8 @@ The steps assume you have RubyGems and Bundler.
 3. Add each applicable instrumentation to your application's Gemfile. For
    example, this is how you add Rails and Redis:
    ```bash
-   $ gem 'signalfx-rails-instrumentation'
-   $ gem 'signalfx-redis-instrumentation'
+   $ bundle add signalfx-rails-instrumentation
+   $ bundle add signalfx-redis-instrumentation
    ```
    For information about instrumentation names, see supported libraries and their
    current versions in `gem.deps.rb`. If you configure Rails instrumentation, it
