@@ -1,5 +1,5 @@
 > # :warning: Deprecation Notice
-> **The SignalFx Ruby Tracing is deprecated and will reach End of Support on December 17th, 2022. After that date, this repository will be archived and no longer receive updates. Until then, only critical security fixes and bug fixes will be provided.**
+> **The SignalFx Ruby Tracing is deprecated and will reach End of Support on September 30, 2023. After that date, this repository will be archived and no longer receive updates. Until then, only critical security fixes and bug fixes will be provided.**
 >
 >Going forward, Ruby applications should use the [Splunk Distribution of OpenTelemetry
 >Ruby](https://github.com/signalfx/splunk-otel-ruby), which offers similar capabilities and fully supports the OpenTelemetry standard. To learn how to migrate, see [Migrate from the SignalFx Tracing Library for Ruby](https://github.com/signalfx/splunk-otel-ruby/blob/main/MIGRATING.md).
